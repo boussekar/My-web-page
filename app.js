@@ -425,6 +425,14 @@ const bookingModal   = document.getElementById('bookingModal');
 const bookingBackdrop= document.getElementById('bookingBackdrop');
 
 function openBookingModal(hotel) {
+  // Require sign-in: check current localStorage user
+  const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+  if (!curUser) {
+    showToast('Please sign in to reserve a room.','error');
+    setTimeout(() => { window.location.href = `auth.html?nextBooking=${hotel.id}`; }, 700);
+    return;
+  }
+
   document.getElementById('modalHotelName').textContent = hotel.name;
   document.getElementById('modalHotelLoc').textContent  = `${hotel.city}, ${hotel.country}`;
   document.getElementById('summaryRate').textContent    = `$${hotel.price}/night`;
@@ -437,6 +445,8 @@ function openBookingModal(hotel) {
   document.getElementById('bookingCheckout').value = toISO(nextWeek);
 
   updateSummary(hotel.price);
+  // hide payment initially
+  const paySection = document.getElementById('paymentSection'); if (paySection) paySection.classList.add('hidden');
   bookingModal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -467,9 +477,35 @@ document.getElementById('confirmBooking').addEventListener('click', () => {
   const cin  = document.getElementById('bookingCheckin').value;
   const cout = document.getElementById('bookingCheckout').value;
   if (!cin || !cout) { showToast('Please select dates.','error'); return; }
+  // Reveal payment section first
+  const paySection = document.getElementById('paymentSection');
+  if (paySection && paySection.classList.contains('hidden')) {
+    paySection.classList.remove('hidden');
+    setTimeout(() => { document.getElementById('payName').focus(); }, 120);
+    return;
+  }
+  // fallback
   closeBooking();
   showToast('✦ Reservation confirmed! Check your email for details.','success');
 });
+
+// Handle payment confirmation (simulated)
+const payConfirm = document.getElementById('payConfirmBtn');
+if (payConfirm) {
+  payConfirm.addEventListener('click', () => {
+    const name = document.getElementById('payName').value.trim();
+    const number = document.getElementById('payNumber').value.replace(/\s+/g,'');
+    const exp = document.getElementById('payExp').value.trim();
+    const cvc = document.getElementById('payCvc').value.trim();
+    if (!name || !number || !exp || !cvc) { showToast('Please complete payment details.','error'); return; }
+    payConfirm.disabled = true; payConfirm.textContent = 'Processing…';
+    setTimeout(() => {
+      payConfirm.disabled = false; payConfirm.textContent = 'Pay & Confirm';
+      closeBooking();
+      showToast('✔ Payment accepted — Reservation confirmed!','success');
+    }, 1200);
+  });
+}
 
 /* ══════════ AI CONCIERGE ══════════ */
 const aiModal    = document.getElementById('aiModal');
@@ -583,4 +619,23 @@ document.querySelectorAll('.featured-card, .why-feat').forEach(el => { el.style.
 /* ══════════ INIT ══════════ */
 window.addEventListener('DOMContentLoaded', () => {
   renderResults(filterHotels('Paris',1,0,'any'), 'Paris', 1, 0, 'any');
+  // open booking if redirected after auth
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const openBooking = params.get('openBooking');
+    if (openBooking) {
+      const hid = parseInt(openBooking,10);
+      const h = hotelDatabase.find(x=>x.id===hid);
+      if (h) openBookingModal(h);
+      history.replaceState(null,'', window.location.pathname);
+    }
+  } catch(e){}
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (links) links.classList.toggle('mobile-open');
+    });
+  }
 });

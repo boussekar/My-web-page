@@ -93,7 +93,15 @@ document.getElementById('loginBtn').addEventListener('click', () => {
   localStorage.setItem('aurum-theme', body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode');
 
   showMsg('Welcome back! Redirecting…', 'success');
-  setTimeout(() => { window.location.href = 'index.html'; }, 1100);
+  setTimeout(() => {
+    // If login was initiated to complete a booking, preserve that intent
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('nextBooking');
+      if (next) return window.location.href = `index.html?openBooking=${encodeURIComponent(next)}`;
+    } catch(e){}
+    window.location.href = 'index.html';
+  }, 1100);
 });
 
 /* ── Register ── */
@@ -117,7 +125,14 @@ document.getElementById('registerBtn').addEventListener('click', () => {
   localStorage.setItem('aurum-theme', body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode');
 
   showMsg(`Welcome to AURUM, ${first}! Redirecting…`, 'success');
-  setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+  setTimeout(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('nextBooking');
+      if (next) return window.location.href = `index.html?openBooking=${encodeURIComponent(next)}`;
+    } catch(e){}
+    window.location.href = 'index.html';
+  }, 1200);
 });
 
 /* ── Social Login ── */

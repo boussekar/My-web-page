@@ -15,6 +15,7 @@
   <!-- NAV -->
   <nav id="navbar">
     <div class="logo">AUR<span>UM</span></div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <ul class="nav-links">
       <li><a href="#" class="nav-link active" data-page="home">Discover</a></li>
       <li><a href="#" class="nav-link" data-page="results">Hotels</a></li>
@@ -256,6 +257,20 @@
           <div class="summary-row summary-total"><span>Total</span><span id="summaryTotal">—</span></div>
         </div>
         <button class="btn-gold full-width" id="confirmBooking">Confirm Reservation</button>
+
+        <!-- Payment section (hidden until user proceeds) -->
+        <div class="payment-section hidden" id="paymentSection">
+          <h3 style="margin:12px 0 8px;color:var(--text);font-size:14px;">Payment</h3>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Name on Card</label><input type="text" class="form-input" id="payName" placeholder="Full name"/></div>
+            <div class="form-group"><label class="form-label">Card Number</label><input type="text" class="form-input" id="payNumber" placeholder="4242 4242 4242 4242"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Expiry</label><input type="text" class="form-input" id="payExp" placeholder="MM/YY"/></div>
+            <div class="form-group"><label class="form-label">CVC</label><input type="text" class="form-input" id="payCvc" placeholder="123"/></div>
+          </div>
+          <button class="btn-gold full-width" id="payConfirmBtn">Pay & Confirm</button>
+        </div>
       </div>
     </div>
   </div>
