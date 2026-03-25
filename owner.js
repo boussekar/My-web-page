@@ -203,32 +203,73 @@ addRoomType("Grand Suite", 850, 4, 4);
 const starValueLabel = document.getElementById("starValueLabel");
 
 function setStarRating(value) {
-  document.querySelectorAll(".star-btn").forEach((b) => {
-    const starVal = Number(b.dataset.val);
-    const active = starVal === Number(value);
-    b.classList.toggle("active", active);
-    b.setAttribute("aria-checked", active ? "true" : "false");
+  const v = Number(value);
+  // Set hidden input
+  const hidden = document.getElementById('f-stars');
+  if (hidden) hidden.value = v;
+
+  // Update buttons: active & aria-checked
+  document.querySelectorAll('.star-btn').forEach((b) => {
+    const isActive = Number(b.dataset.val) === v;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-checked', isActive ? 'true' : 'false');
+    b.classList.remove('preview');
   });
-  const text = Number(value) === 1 ? "1 star" : `${value} stars`;
-  if (starValueLabel) starValueLabel.textContent = `Selected rating: ${text}`;
-  document.getElementById("f-stars").value = value;
+
+  if (starValueLabel) starValueLabel.textContent = v === 1 ? 'Selected rating: 1 star' : `Selected rating: ${v} stars`;
   updatePreview();
 }
 
-document.querySelectorAll(".star-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    setStarRating(btn.dataset.val);
-  });
-  btn.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setStarRating(btn.dataset.val);
-    }
-  });
-});
+// temporary visual preview (hover/focus) without changing the value
+function previewStars(value) {
+  // remove all previews
+  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('preview'));
+  if (!value) return;
+  const btn = document.querySelector(`.star-btn[data-val="${value}"]`);
+  if (btn && btn.getAttribute('aria-checked') !== 'true') btn.classList.add('preview');
+}
 
-// Ensure initial star and preview state is synced on page load.
-setStarRating(document.getElementById("f-stars")?.value || 5);
+function initStars() {
+  const container = document.getElementById('starSelector');
+  if (!container) {
+    console.warn('Star selector container not found');
+    return;
+  }
+
+  const btns = container.querySelectorAll('.star-btn');
+  btns.forEach((btn) => {
+    btn.tabIndex = 0;
+    btn.style.pointerEvents = 'auto';
+    btn.style.cursor = 'pointer';
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const val = btn.dataset.val;
+      setStarRating(val);
+    });
+
+    btn.addEventListener('mouseenter', () => previewStars(btn.dataset.val));
+    btn.addEventListener('mouseleave', () => previewStars(null));
+
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setStarRating(btn.dataset.val); return; }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); const next = Math.min(5, Number(btn.dataset.val) + 1); container.querySelector(`.star-btn[data-val="${next}"]`)?.focus(); previewStars(next); return; }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); const prev = Math.max(1, Number(btn.dataset.val) - 1); container.querySelector(`.star-btn[data-val="${prev}"]`)?.focus(); previewStars(prev); return; }
+      if (e.key === 'Home') { e.preventDefault(); container.querySelector('.star-btn[data-val="1"]')?.focus(); previewStars(1); return; }
+      if (e.key === 'End') { e.preventDefault(); container.querySelector('.star-btn[data-val="5"]')?.focus(); previewStars(5); return; }
+    });
+  });
+
+  // Sync initial state
+  setStarRating(document.getElementById('f-stars')?.value || 5);
+}
+
+// Initialize stars when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initStars);
+} else {
+  initStars();
+}
 
 /* ══════════════════
    TAG INPUT (Languages)

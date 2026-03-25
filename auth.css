@@ -33,23 +33,23 @@ body.dark-mode {
 body.light-mode {
   --bg:          #f8fafc;
   --bg2:         #ffffff;
-  --bg3:         #e0e7ff;
-  --border:      rgba(59, 130, 246, 0.20);
-  --border-s:    rgba(59, 130, 246, 0.10);
+  --bg3:         #f0f6ec;
+  --border:      rgba(107,142,35,0.20);
+  --border-s:    rgba(107,142,35,0.10);
   --text:        #1a2e48;
   --text-m:      #4b5563;
-  --gold:        #3b82f6;
-  --gold-d:      #1e40af;
-  --gold-glow:   rgba(59, 130, 246, 0.12);
+  --gold:        #6b8e23;
+  --gold-d:      #4f6b18;
+  --gold-glow:   rgba(107,142,35,0.12);
   --white:       #1a2e48;
   --input-bg:    rgba(255, 255, 255, 0.95);
-  --input-bdr:   rgba(59, 130, 246, 0.15);
+  --input-bdr:   rgba(107,142,35,0.15);
   --btn-txt:     #ffffff;
   --social-bg:   #ffffff;
-  --social-bdr:  rgba(59, 130, 246, 0.15);
+  --social-bdr:  rgba(107,142,35,0.15);
   --social-txt:  #1a2e48;
   --left-overlay:rgba(10, 18, 32, 0.50);
-  --toggle-bg:   rgba(59, 130, 246, 0.08);
+  --toggle-bg:   rgba(107,142,35,0.08);
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }

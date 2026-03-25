@@ -162,11 +162,22 @@
               <div class="field-group">
                 <label class="field-label" for="f-stars">Star Rating <span class="req">*</span></label>
                 <div class="star-selector" id="starSelector" role="radiogroup" aria-label="Hotel star rating">
-                  <button type="button" class="star-btn" data-val="1" role="radio" aria-checked="false">★</button>
-                  <button type="button" class="star-btn" data-val="2" role="radio" aria-checked="false">★★</button>
-                  <button type="button" class="star-btn" data-val="3" role="radio" aria-checked="false">★★★</button>
-                  <button type="button" class="star-btn" data-val="4" role="radio" aria-checked="false">★★★★</button>
-                  <button type="button" class="star-btn active" data-val="5" role="radio" aria-checked="true">★★★★★</button>
+                  <!-- Each button visually represents N stars; clicking selects that rating -->
+                  <button type="button" class="star-btn" data-val="1" role="radio" aria-checked="false" aria-label="1 star">
+                    <span class="star">★</span>
+                  </button>
+                  <button type="button" class="star-btn" data-val="2" role="radio" aria-checked="false" aria-label="2 stars">
+                    <span class="star">★</span><span class="star">★</span>
+                  </button>
+                  <button type="button" class="star-btn" data-val="3" role="radio" aria-checked="false" aria-label="3 stars">
+                    <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                  </button>
+                  <button type="button" class="star-btn" data-val="4" role="radio" aria-checked="false" aria-label="4 stars">
+                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                  </button>
+                  <button type="button" class="star-btn" data-val="5" role="radio" aria-checked="false" aria-label="5 stars">
+                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                  </button>
                 </div>
                 <input type="hidden" id="f-stars" value="5"/>
                 <div class="star-note" id="starValueLabel">Selected rating: 5 stars</div>

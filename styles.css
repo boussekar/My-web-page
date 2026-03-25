@@ -270,6 +270,11 @@ body.light-mode .hero-orb-2 { background:radial-gradient(circle,rgba(160,120,64,
   color:var(--text); font-family:'Cormorant Garamond',serif;
   font-size:18px; font-weight:300; width:100%;
 }
+
+/* Keep short labels on one line to avoid wrapping (eg. "Budget / Night") */
+.search-label { white-space:nowrap; }
+.search-field { min-width:0; }
+.search-select { min-width:0; }
 .search-select option { background:var(--bg2); color:var(--text); }
 .search-input::placeholder { color:var(--text-m); }
 
@@ -629,7 +634,18 @@ body.light-mode .hero-orb-2 { background:radial-gradient(circle,rgba(160,120,64,
 @media(max-width:768px){
   nav { padding:14px 20px; }
   nav.scrolled { padding:10px 20px; }
-  .nav-links { display:none; }
+  /* mobile: keep links available for slide-in side panel (hidden via transform) */
+  .nav-links {
+    display:flex; /* show but slide off-canvas by default */
+    position:fixed;
+    top:0; left:0; height:100%;
+    width:260px; max-width:80%;
+    transform:translateX(-100%);
+    transition:transform 0.35s cubic-bezier(.2,.9,.2,1);
+    flex-direction:column; gap:18px; padding:80px 20px;
+    background:var(--navbar-bg); border-right:1px solid var(--border-s);
+    box-shadow:var(--shadow); z-index:1200;
+  }
   .search-grid { grid-template-columns:1fr; }
   .search-field { padding:8px 0; border-right:none; border-bottom:1px solid var(--border-s); }
   .search-field.search-field-btn { border-bottom:none; padding-top:14px; }
@@ -648,9 +664,53 @@ body.light-mode .hero-orb-2 { background:radial-gradient(circle,rgba(160,120,64,
 /* Mobile nav open state */
 @media(max-width:768px){
   .nav-toggle { display:block; background:none; border:none; color:var(--gold); font-size:20px; cursor:pointer; }
-  .nav-links.mobile-open { display:flex; position:absolute; top:64px; left:0; right:0; background:var(--navbar-bg); flex-direction:column; gap:10px; padding:12px 20px; border-bottom:1px solid var(--border-s); box-shadow:var(--shadow); z-index:1200; }
+  /* when the nav gets the mobile-open class it slides into view */
+  .nav-links.mobile-open { transform:translateX(0); }
+
+  /* make nav links larger and easier to tap on mobile */
+  .nav-links a { font-size:14px; padding:12px 6px; letter-spacing:2px; }
+}
+
+/* Align search action button with other fields */
+.search-field.search-field-btn { display:flex; align-items:center; justify-content:center; padding-left:20px; border-right:none; }
+
+/* prevent top content from being obscured by fixed navbar on small screens */
+@media(max-width:900px){
+  .page { padding-top:78px; }
 }
 
 /* Payment UI helpers */
 .payment-section.hidden { display:none; }
 .payment-section { margin-top:18px; }
+
+/* Small side sign-in tip shown next to Reserve button when user is unsigned */
+.signin-tip {
+  width:260px; max-width:80%; border-radius:8px; overflow:hidden;
+  border:1px solid var(--border); background:var(--bg2); box-shadow:0 12px 40px rgba(0,0,0,0.6);
+  transition:transform 0.18s ease, opacity 0.18s ease;
+}
+.signin-tip--alert { border-color: rgba(220,80,80,0.35); box-shadow: 0 8px 30px rgba(220,60,60,0.18), inset 0 1px 0 rgba(255,255,255,0.02); }
+.signin-tip .signin-tip-body { padding:12px; }
+.signin-tip-msg { font-size:13px; color:#ffefef; margin-bottom:8px; font-weight:600; }
+.signin-tip--alert { background: linear-gradient(180deg, rgba(180,40,40,0.12), rgba(120,20,20,0.06)); border-left:4px solid #ff4d4d; }
+.signin-tip--alert .signin-tip-msg { color:#ffebeb; padding:8px; border-radius:6px; }
+.signin-tip--alert { animation: pulseRed 2s ease-in-out infinite; }
+@keyframes pulseRed { 0%{box-shadow:0 6px 18px rgba(255,77,77,0.06)} 50%{box-shadow:0 10px 30px rgba(255,77,77,0.10)} 100%{box-shadow:0 6px 18px rgba(255,77,77,0.06)} }
+
+/* Entrance animation */
+.signin-tip { opacity:0; transform:translateY(6px) translateX(6px) scale(0.98); will-change:transform,opacity; }
+.signin-tip.show { opacity:1; transform:translateY(0) translateX(0) scale(1); transition:transform 240ms cubic-bezier(.2,.9,.3,1), opacity 180ms ease; }
+
+/* Light mode overrides so text is readable */
+body.light-mode .signin-tip { background: linear-gradient(180deg, rgba(255,230,230,0.9), rgba(255,245,245,0.8)); border:1px solid rgba(220,40,40,0.12); box-shadow:0 8px 30px rgba(220,40,40,0.06); }
+body.light-mode .signin-tip--alert { border-left:4px solid #c53030; }
+body.light-mode .signin-tip-msg { color:#4a0f0f; }
+
+/* ensure tip doesn't cover important interactive elements on very small screens */
+@media(max-width:520px){
+  .signin-tip { position:fixed !important; left:12px !important; right:12px !important; top:auto !important; bottom:18px !important; transform:none !important; }
+  .signin-tip.show { transform:none; }
+}
+.signin-tip-actions { display:flex; gap:8px; justify-content:flex-end; }
+.signin-tip .btn-outline { padding:6px 12px; font-size:12px; }
+.signin-tip .btn-gold { padding:6px 12px; font-size:12px; }

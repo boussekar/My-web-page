@@ -7,8 +7,8 @@ const body = document.body;
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon   = document.getElementById('themeIcon');
 
-// Load saved theme
-const savedTheme = localStorage.getItem('aurum-theme') || 'dark-mode';
+// Load saved theme (default to light/day mode)
+const savedTheme = localStorage.getItem('aurum-theme') || 'light-mode';
 body.className = savedTheme;
 updateThemeIcon(savedTheme);
 

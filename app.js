@@ -59,9 +59,17 @@ function showPage(id) {
   pages.forEach(p => p.classList.remove('active'));
   navLinks.forEach(l => l.classList.remove('active'));
   const target = document.getElementById('page-' + id);
-  if (target) { target.classList.add('active'); window.scrollTo({ top:0, behavior:'smooth' }); }
+  if (target) {
+    target.classList.add('active');
+    // scroll so content isn't hidden beneath the fixed navbar
+    const offset = (navbar && navbar.offsetHeight) ? navbar.offsetHeight + 8 : 0;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
   navLinks.forEach(l => { if (l.dataset.page === id) l.classList.add('active'); });
+  // close mobile side-nav if open
+  document.querySelector('.nav-links')?.classList.remove('mobile-open');
 }
+
 
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
@@ -297,7 +305,16 @@ function createHotelCard(hotel, delay=0) {
 
   card.querySelector('.hotel-view-photos').addEventListener('click', e => { e.stopPropagation(); openGallery(hotel); });
   card.querySelector('.hotel-card-img-inner').addEventListener('click', () => openGallery(hotel));
-  card.querySelector('.hotel-book-btn').addEventListener('click', () => openBookingModal(hotel));
+  const bookBtn = card.querySelector('.hotel-book-btn');
+  bookBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+    if (curUser) {
+      openBookingModal(hotel);
+    } else {
+      showSideSigninTip(bookBtn, hotel);
+    }
+  });
   return card;
 }
 
@@ -425,14 +442,8 @@ const bookingModal   = document.getElementById('bookingModal');
 const bookingBackdrop= document.getElementById('bookingBackdrop');
 
 function openBookingModal(hotel) {
-  // Require sign-in: check current localStorage user
+  // Show booking modal. If user isn't signed-in, show an inline sign-in prompt
   const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
-  if (!curUser) {
-    showToast('Please sign in to reserve a room.','error');
-    setTimeout(() => { window.location.href = `auth.html?nextBooking=${hotel.id}`; }, 700);
-    return;
-  }
-
   document.getElementById('modalHotelName').textContent = hotel.name;
   document.getElementById('modalHotelLoc').textContent  = `${hotel.city}, ${hotel.country}`;
   document.getElementById('summaryRate').textContent    = `$${hotel.price}/night`;
@@ -449,6 +460,136 @@ function openBookingModal(hotel) {
   const paySection = document.getElementById('paymentSection'); if (paySection) paySection.classList.add('hidden');
   bookingModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // If not signed in, don't auto-show a sign-in overlay here. Booking is started only after sign-in.
+}
+
+// Show a small side-tip near the Reserve button prompting the user to sign in.
+function showSideSigninTip(button, hotel) {
+  // remove any existing tip
+  const existing = document.getElementById('signinTip');
+  if (existing) existing.remove();
+
+  const tip = document.createElement('div');
+  tip.id = 'signinTip';
+  tip.className = 'signin-tip signin-tip--alert';
+  // simple red tip message (no explicit dismiss or sign-in buttons)
+  tip.innerHTML = `
+    <div class="signin-tip-body">
+      <div class="signin-tip-msg">Please sign in to continue your reservation</div>
+    </div>
+  `;
+
+  document.body.appendChild(tip);
+
+  // position the tip a bit to the right of the button (or to the left if not enough space)
+  const rect = button.getBoundingClientRect();
+  // give the tip a small buffer so it doesn't visually overlap the card
+  const preferOffset = 20; // px from the button edge
+  tip.style.position = 'absolute';
+  tip.style.zIndex = 9999;
+  // force a layout so getBoundingClientRect gives correct dimensions
+  document.body.appendChild(tip);
+  const tipRect = tip.getBoundingClientRect();
+  const spaceRight = window.innerWidth - rect.right;
+  let left;
+  if (spaceRight > tipRect.width + preferOffset) {
+    left = window.scrollX + rect.right + preferOffset;
+  } else {
+    left = Math.max(12, window.scrollX + rect.left - tipRect.width - preferOffset);
+  }
+  // vertical center near button but clamp inside viewport
+  const rawTop = window.scrollY + rect.top + (rect.height - tipRect.height) / 2;
+  const minTop = window.scrollY + 12;
+  const maxTop = window.scrollY + window.innerHeight - tipRect.height - 12;
+  const top = Math.min(maxTop, Math.max(minTop, rawTop));
+  tip.style.left = `${Math.round(left)}px`;
+  tip.style.top = `${Math.round(top)}px`;
+
+  // animate in
+  requestAnimationFrame(() => { tip.classList.add('show'); });
+
+  // make the whole tip clickable to go to the sign-in page (no explicit button)
+  tip.style.cursor = 'pointer';
+  const onClickTip = () => { window.location.href = 'auth.html'; };
+  tip.addEventListener('click', onClickTip);
+
+  // Auto-dismiss behavior: remove after timeout, or when user scrolls (dismiss)
+  // On resize we reposition the tip so it stays visible and doesn't overlap.
+  let dismissTimer = setTimeout(() => cleanupTip(), 7000);
+  function onScroll() { cleanupTip(); }
+  function onResize() { repositionTip(); }
+
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onResize);
+
+  function cleanupTip() {
+    if (!tip || !tip.parentNode) return;
+    tip.classList.remove('show');
+    // small delay so hide animation is visible
+    setTimeout(() => { try { tip.remove(); } catch(e){} }, 220);
+    clearTimeout(dismissTimer);
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onResize);
+    tip.removeEventListener('click', onClickTip);
+  }
+
+  function repositionTip() {
+    if (!tip || !tip.parentNode) return;
+    const rect = button.getBoundingClientRect();
+    const tipRect = tip.getBoundingClientRect();
+    const preferOffset = 20;
+    const spaceRight = window.innerWidth - rect.right;
+    let left;
+    if (spaceRight > tipRect.width + preferOffset) {
+      left = window.scrollX + rect.right + preferOffset;
+    } else {
+      left = Math.max(12, window.scrollX + rect.left - tipRect.width - preferOffset);
+    }
+    const rawTop = window.scrollY + rect.top + (rect.height - tipRect.height) / 2;
+    const minTop = window.scrollY + 12;
+    const maxTop = window.scrollY + window.innerHeight - tipRect.height - 12;
+    const top = Math.min(maxTop, Math.max(minTop, rawTop));
+    tip.style.left = `${Math.round(left)}px`;
+    tip.style.top = `${Math.round(top)}px`;
+  }
+}
+
+// Inline sign-in modal appended to body. Calls callback after successful sign-in.
+function openInlineSignin(onSuccess) {
+  if (document.getElementById('inlineSignin')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'inlineSignin';
+  overlay.style.position = 'fixed'; overlay.style.inset = '0'; overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center'; overlay.style.justifyContent = 'center'; overlay.style.zIndex = 10000;
+  overlay.style.background = 'rgba(0,0,0,0.45)';
+
+  overlay.innerHTML = `
+    <div style="width:360px;max-width:92%;padding:20px;background:var(--bg2);border:1px solid var(--border);box-shadow:var(--shadow);">
+      <h3 style="margin:0 0 8px;color:var(--white);font-family:'Cormorant Garamond',serif;">Sign In</h3>
+      <p style="margin:0 0 12px;color:var(--text-m);font-size:13px;">Enter your name to sign in and continue.</p>
+      <input id="inlineName" placeholder="Full name" style="width:100%;padding:10px;margin-bottom:8px;border:1px solid var(--border-s);background:var(--bg3);color:var(--text);outline:none;" />
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button id="inlineCancel" class="btn-outline">Cancel</button>
+        <button id="inlineSubmit" class="btn-gold">Sign In</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('inlineCancel').addEventListener('click', () => overlay.remove());
+  document.getElementById('inlineSubmit').addEventListener('click', () => {
+    const name = document.getElementById('inlineName').value.trim();
+    if (!name) { showToast('Please enter your name to sign in.', 'error'); return; }
+    const initials = name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase() || 'AU';
+    const user = { name, initials };
+    localStorage.setItem('aurum-user', JSON.stringify(user));
+    try { navUser.style.display = 'none'; navUserLogged.classList.remove('hidden'); navAvatar.textContent = initials; navUsername.textContent = name.split(' ')[0]; } catch(e){}
+    overlay.remove();
+    showToast('Signed in — continuing reservation.');
+    if (typeof onSuccess === 'function') onSuccess();
+  });
 }
 
 function updateSummary(rate) {
