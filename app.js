@@ -41,7 +41,8 @@ if (savedUser) {
   navUsername.textContent = savedUser.name.split(' ')[0];
 }
 
-document.getElementById('navSignout').addEventListener('click', () => {
+// See app.js for navSignout handler
+document.getElementById("navSignoutX")?.addEventListener("click", () => {
   localStorage.removeItem('aurum-user');
   navUserLogged.classList.add('hidden');
   navUser.style.display = '';
@@ -780,3 +781,21 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+/* ══════════ OWNER ROLE NAV ══════════ */
+// If user is an owner, update the nav actions area to show dashboard link
+(function() {
+  const u = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+  if (u && u.role === 'owner') {
+    const loggedDiv = document.getElementById('navUserLogged');
+    if (loggedDiv) {
+      // Add dashboard link
+      const dashLink = document.createElement('a');
+      dashLink.href = 'owner-dashboard.html';
+      dashLink.className = 'nav-btn';
+      dashLink.style.cssText = 'margin-right:8px;background:linear-gradient(135deg,#4f6b18,#6b8e23);color:#fff;font-size:10px;';
+      dashLink.textContent = 'Dashboard';
+      loggedDiv.insertBefore(dashLink, loggedDiv.firstChild);
+    }
+  }
+})();

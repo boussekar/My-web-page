@@ -295,3 +295,85 @@ button { font-family: 'Jost', sans-serif; cursor:pointer; }
   .auth-left  { display: none; }
   .auth-right { padding: 40px 28px; }
 }
+
+/* ── Role Switcher ── */
+.role-switcher {
+  display: flex;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border-s);
+  background: var(--input-bg);
+  padding: 4px;
+  gap: 4px;
+}
+.role-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-m);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.3s;
+}
+.role-btn.active {
+  background: var(--gold);
+  color: var(--btn-txt);
+}
+.role-btn:hover:not(.active) {
+  background: var(--gold-glow);
+  color: var(--gold);
+}
+
+/* Owner badge */
+.owner-auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  margin-bottom: 20px;
+  background: var(--gold-glow);
+}
+
+/* Owner login btn variation */
+.btn-auth.owner-btn {
+  background: linear-gradient(135deg, #1a3a1a, #2d7a2d);
+}
+body.light-mode .btn-auth.owner-btn {
+  background: linear-gradient(135deg, #4f6b18, #6b8e23);
+}
+
+/* Field error */
+.field-error {
+  font-size: 11px;
+  color: #e74c3c;
+  margin-top: 5px;
+  min-height: 16px;
+  transition: opacity 0.2s;
+}
+.field-error:empty { opacity: 0; }
+
+/* Back link */
+.auth-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 1px;
+  transition: opacity 0.2s;
+}
+.auth-back:hover { opacity: 0.7; }
+
+/* Hidden util */
+.hidden { display: none !important; }
