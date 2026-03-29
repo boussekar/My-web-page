@@ -346,13 +346,26 @@ button { font-family: 'Jost', sans-serif; cursor:pointer; }
   background: var(--gold-glow);
 }
 
-/* Owner login btn variation */
+/* Owner login btn — gold hover glow matching the guest Sign In button */
 .btn-auth.owner-btn {
   background: linear-gradient(135deg, #1a3a1a, #2d7a2d);
 }
 body.light-mode .btn-auth.owner-btn {
   background: linear-gradient(135deg, #4f6b18, #6b8e23);
 }
+/* Both buttons share the same gold hover effect */
+.btn-auth.owner-btn:hover {
+  box-shadow: 0 8px 30px rgba(201,169,110,0.35);
+  transform: translateY(-1px);
+}
+.btn-auth.owner-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s;
+}
+.btn-auth.owner-btn:hover::after { left: 100%; }
 
 /* Field error */
 .field-error {

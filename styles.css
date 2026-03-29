@@ -145,6 +145,28 @@ nav.scrolled {
   transition:all 0.3s; cursor:pointer; display:inline-block;
 }
 .nav-btn:hover { background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.nav-btn-owner { margin-left: 8px; }
+.nav-btn-owner:hover { background:var(--gold) !important; color:var(--bg) !important; border-color:var(--gold) !important; }
+.nav-btn-dash {
+  margin-right: 8px;
+  background: linear-gradient(135deg, #8a6a3a, #c9a96e);
+  border: 1px solid rgba(201,169,110,0.4);
+  color: #0a0d11;
+}
+.nav-btn-dash:hover {
+  background: linear-gradient(135deg, #c9a96e, #e8d5b0) !important;
+  color: #0a0d11;
+  border-color: #c9a96e;
+}
+body.light-mode .nav-btn-dash {
+  background: linear-gradient(135deg, #4f6b18, #8cb043);
+  border-color: rgba(107,142,35,0.4);
+  color: #f0f6ec;
+}
+body.light-mode .nav-btn-dash:hover {
+  background: linear-gradient(135deg, #6b8e23, #b9cfa1) !important;
+  color: #f0f6ec;
+}
 
 /* Logged in user in nav */
 .nav-user-logged { display:flex; align-items:center; gap:10px; }

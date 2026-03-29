@@ -2,6 +2,9 @@
    AURUM — app.js  (updated)
 ═══════════════════════════════════════════════ */
 
+/* ══════════ AI CONFIG ══════════ */
+const CLAUDE_API_KEY = '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';
+
 /* ══════════ THEME ══════════ */
 const body = document.body;
 const themeToggle = document.getElementById('themeToggle');
@@ -42,7 +45,7 @@ if (savedUser) {
 }
 
 // See app.js for navSignout handler
-document.getElementById("navSignoutX")?.addEventListener("click", () => {
+document.getElementById("navSignout")?.addEventListener("click", () => {
   localStorage.removeItem('aurum-user');
   navUserLogged.classList.add('hidden');
   navUser.style.display = '';
@@ -74,7 +77,18 @@ function showPage(id) {
 
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
-    if (link.dataset.page) { e.preventDefault(); showPage(link.dataset.page); }
+    if (link.dataset.page) { e.preventDefault(); showPage(link.dataset.page); return; }
+    // Intercept "List Property" link for guest users
+    if (link.getAttribute('href') === 'owner.html') {
+      e.preventDefault();
+      const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+      if (!curUser) {
+        // Guest — show tip asking them to sign in as owner
+        showSideSigninTip(link, null, 'You need to sign in as an owner to list your property');
+      } else {
+        window.location.href = 'owner.html';
+      }
+    }
   });
 });
 
@@ -360,8 +374,17 @@ function openGallery(hotel) {
   document.body.style.overflow = 'hidden';
 
   document.getElementById('galBookBtn').onclick = () => {
-    closeGallery();
-    setTimeout(() => openBookingModal(hotel), 200);
+    const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+    if (curUser) {
+      // Signed in — close gallery then open booking
+      closeGallery();
+      setTimeout(() => openBookingModal(hotel), 200);
+    } else {
+      // Not signed in — show the same tip popup used by card Reserve buttons
+      // Keep the gallery open so the tip appears on top of it
+      const galBtn = document.getElementById('galBookBtn');
+      showSideSigninTip(galBtn, hotel);
+    }
   };
 }
 
@@ -436,6 +459,9 @@ galleryBackdrop.addEventListener('click', closeGallery);
 function closeGallery() {
   galleryModal.classList.remove('open');
   document.body.style.overflow = '';
+  // Close signin tip if open so it doesn't orphan on top of other content
+  const existing = document.getElementById('signinTip');
+  if (existing) { existing.classList.remove('show'); setTimeout(() => { try { existing.remove(); } catch(e){} }, 220); }
 }
 
 /* ══════════ BOOKING MODAL ══════════ */
@@ -443,8 +469,12 @@ const bookingModal   = document.getElementById('bookingModal');
 const bookingBackdrop= document.getElementById('bookingBackdrop');
 
 function openBookingModal(hotel) {
-  // Show booking modal. If user isn't signed-in, show an inline sign-in prompt
+  // Auth guard: if not signed in, show the same sign-in tip used by the card buttons
   const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+  if (!curUser) {
+    showSideSigninTip(document.querySelector('.gallery-window .btn-gold') || document.body, hotel);
+    return;
+  }
   document.getElementById('modalHotelName').textContent = hotel.name;
   document.getElementById('modalHotelLoc').textContent  = `${hotel.city}, ${hotel.country}`;
   document.getElementById('summaryRate').textContent    = `$${hotel.price}/night`;
@@ -466,32 +496,33 @@ function openBookingModal(hotel) {
 }
 
 // Show a small side-tip near the Reserve button prompting the user to sign in.
-function showSideSigninTip(button, hotel) {
+function showSideSigninTip(button, hotel, msg) {
   // remove any existing tip
   const existing = document.getElementById('signinTip');
   if (existing) existing.remove();
 
+  const message = msg || 'Please sign in to continue your reservation';
+
   const tip = document.createElement('div');
   tip.id = 'signinTip';
   tip.className = 'signin-tip signin-tip--alert';
-  // simple red tip message (no explicit dismiss or sign-in buttons)
   tip.innerHTML = `
     <div class="signin-tip-body">
-      <div class="signin-tip-msg">Please sign in to continue your reservation</div>
+      <div class="signin-tip-msg">${message}</div>
     </div>
   `;
 
   document.body.appendChild(tip);
 
-  // position the tip a bit to the right of the button (or to the left if not enough space)
+  // position the tip to the right of the button
   const rect = button.getBoundingClientRect();
-  // give the tip a small buffer so it doesn't visually overlap the card
   const preferOffset = 20; // px from the button edge
   tip.style.position = 'absolute';
   tip.style.zIndex = 9999;
   // force a layout so getBoundingClientRect gives correct dimensions
   document.body.appendChild(tip);
   const tipRect = tip.getBoundingClientRect();
+  // always try to place to the right first, then left if not enough space
   const spaceRight = window.innerWidth - rect.right;
   let left;
   if (spaceRight > tipRect.width + preferOffset) {
@@ -517,7 +548,7 @@ function showSideSigninTip(button, hotel) {
 
   // Auto-dismiss behavior: remove after timeout, or when user scrolls (dismiss)
   // On resize we reposition the tip so it stays visible and doesn't overlap.
-  let dismissTimer = setTimeout(() => cleanupTip(), 7000);
+  let dismissTimer = setTimeout(() => cleanupTip(), 1500);
   function onScroll() { cleanupTip(); }
   function onResize() { repositionTip(); }
 
@@ -682,8 +713,11 @@ async function sendAI() {
   const typing = appendMsg('', 'bot');
   typing.classList.add('ai-typing');
 
-  try {
-    const system = `You are a sophisticated AI concierge for AURUM, a luxury hotel booking platform.
+  // Parse filters from the user's message
+  const parsed = parseUserFilters(text);
+  const { city, rooms, children, maxPrice } = parsed;
+
+  const system = `You are a sophisticated AI concierge for AURUM, a luxury hotel booking platform.
 Help guests find their perfect hotel. Available cities: Paris (France), Dubai (UAE), Tokyo (Japan), New York (USA), London (UK), Barcelona (Spain), Algiers (Algeria), Oran (Algeria), Istanbul (Turkey), Marrakech (Morocco).
 
 Hotels:
@@ -698,35 +732,66 @@ Hotels:
 - Istanbul: Four Seasons Bosphorus ($680/night), Çırağan Palace Kempinski ($890/night)
 - Marrakech: La Mamounia ($750/night), Royal Mansour ($1400/night)
 
-Respond in 3-5 refined sentences. Recommend 1-2 specific hotels. Mention their starting price. Be warm, cultured, and concise. Do not invent hotels outside this list.`;
+When recommending hotels, always include each hotel's exact price in your response (e.g. "from $450/night"). If the guest mentioned a budget or price limit, only recommend hotels within that limit and state clearly which price ceiling you are applying. If they mentioned room or child requirements, acknowledge those too. Respond in 3-5 refined sentences. Recommend 1-2 specific hotels. Be warm, cultured, and concise. Do not invent hotels outside this list.`;
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+  try {
+    const res = await fetch('https://aurum-ia.boussekarabderrahmane.workers.dev/anthropic', {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json'
+      },
       body: JSON.stringify({
-        model:'claude-sonnet-4-20250514', max_tokens:450,
+        model:'claude-sonnet-4-6', max_tokens:450,
         system, messages:[{role:'user',content:text}]
       })
     });
     const data = await res.json();
     typing.classList.remove('ai-typing');
 
+    console.log('AI raw response:', JSON.stringify(data));
+
+    if (!res.ok) {
+      const errorMsg = data?.error?.message || 'API request failed. Check your API key.';
+      typing.querySelector('.ai-msg-bubble').innerHTML = 'Our AI concierge is momentarily unavailable.<br><small style="opacity:0.5">'+errorMsg+'</small>';
+      return;
+    }
+
     const reply = data.content?.[0]?.text || 'I encountered a brief issue. Please try again.';
     typing.querySelector('.ai-msg-bubble').innerHTML = reply;
 
-    // Auto suggest city button
+    // Extract price and city from the AI's reply to use as filters
+    const replyFilters = parseReplyFilters(reply);
+    const finalCity    = replyFilters.city    || city;
+    const finalPrice   = replyFilters.price   || maxPrice;
+    const finalRooms   = replyFilters.rooms   || rooms;
+    const finalChildren= replyFilters.children || children;
+
+    // Build label with all applied filters
+    const filterParts = [];
+    if (finalCity)    filterParts.push(finalCity.charAt(0).toUpperCase() + finalCity.slice(1));
+    if (finalPrice)   filterParts.push(`up to $${finalPrice}`);
+    if (finalRooms > 1) filterParts.push(`${finalRooms} rooms`);
+    if (finalChildren > 0) filterParts.push(`${finalChildren} child${finalChildren !== 1 ? 'ren' : ''}`);
+
+    // Auto suggest city button — now carries ALL parsed filters
     const cities = ['paris','dubai','tokyo','new york','london','barcelona','algiers','oran','istanbul','marrakech'];
-    const found  = cities.find(c => reply.toLowerCase().includes(c));
+    const found  = cities.find(c => reply.toLowerCase().includes(c) || text.toLowerCase().includes(c));
     if (found) {
       setTimeout(() => {
-        const hint = appendMsg(`→ Shall I show you hotels in <strong>${found.charAt(0).toUpperCase()+found.slice(1)}</strong>?`, 'bot');
+        const label = filterParts.length
+          ? `→ Show <strong>${filterParts.join(' · ')}</strong>?`
+          : `→ Shall I show you hotels in <strong>${found.charAt(0).toUpperCase()+found.slice(1)}</strong>?`;
+        const hint = appendMsg(label, 'bot');
         const btn  = document.createElement('button');
         btn.className = 'btn-gold';
         btn.style.cssText = 'margin-top:10px;font-size:10px;padding:9px 20px;';
-        btn.textContent = `View ${found.charAt(0).toUpperCase()+found.slice(1)} Hotels`;
+        btn.textContent = filterParts.length ? `View Hotels` : `View ${found.charAt(0).toUpperCase()+found.slice(1)} Hotels`;
         btn.addEventListener('click', () => {
           document.getElementById('s-location').value = found;
-          renderResults(filterHotels(found,1,0,'any'), found, 1, 0, 'any');
+          document.getElementById('s-rooms').value    = finalRooms;
+          document.getElementById('s-children').value  = finalChildren;
+          document.getElementById('s-price').value     = finalPrice || 'any';
+          renderResults(filterHotels(found, finalRooms, finalChildren, finalPrice || 'any'), found, finalRooms, finalChildren, finalPrice || 'any');
           aiModal.classList.remove('open');
           document.body.style.overflow = '';
           showPage('results');
@@ -736,9 +801,70 @@ Respond in 3-5 refined sentences. Recommend 1-2 specific hotels. Mention their s
     }
   } catch(err) {
     typing.classList.remove('ai-typing');
-    typing.querySelector('.ai-msg-bubble').textContent = 'Our AI concierge is momentarily unavailable. Please use the search above.';
+    typing.querySelector('.ai-msg-bubble').innerHTML = 'Our AI concierge is momentarily unavailable.<br><small style="opacity:0.5">'+String(err)+'</small>';
   }
   aiMessages.scrollTop = aiMessages.scrollHeight;
+}
+
+// Parse budget, rooms, children from user message
+function parseUserFilters(text) {
+  const t = text.toLowerCase();
+  let rooms    = 1;
+  let children = 0;
+  let maxPrice = null;
+
+  // Detect rooms: "2 rooms", "3 room", "1 bedroom"
+  const roomMatch = t.match(/(\d+)\s*(?:room|bedroom|suite)/);
+  if (roomMatch) rooms = parseInt(roomMatch[1]);
+
+  // Detect children: "1 child", "2 kids", "3 children"
+  const childMatch = t.match(/(\d+)\s*(?:child|kid|children)/);
+  if (childMatch) children = parseInt(childMatch[1]);
+
+  // Detect budget: "under $300", "under 300", "budget", "cheap", "affordable", "less than $500", "max $200", "$100-", etc.
+  if (/\b(under|below|less than|max|up to|around|about)\s*\$?(\d+)/.test(t)) {
+    const m = t.match(/\b(under|below|less than|max|up to|around|about)\s*\$?(\d+)/);
+    if (m) maxPrice = parseInt(m[2]);
+  } else if (/\$(\d+)/.test(t)) {
+    const m = t.match(/\$(\d+)/);
+    if (m) maxPrice = parseInt(m[1]);
+  } else if (/\b(budget|cheap|affordable|inexpensive|low cost|low-price)/.test(t)) {
+    maxPrice = 300; // default "budget" threshold
+  }
+
+  // Detect city
+  const cities = ['paris','dubai','tokyo','new york','london','barcelona','algiers','oran','istanbul','marrakech'];
+  let city = null;
+  for (const c of cities) { if (t.includes(c)) { city = c; break; } }
+
+  return { city, rooms, children, maxPrice };
+}
+
+// Extract city, price, rooms, children from AI reply text
+function parseReplyFilters(reply) {
+  const r = reply.toLowerCase();
+  let price   = null;
+  let rooms   = null;
+  let children= null;
+  let city    = null;
+
+  // Extract highest price mentioned in reply (e.g. "$450/night", "$980 per night")
+  const priceMatches = [...r.matchAll(/\$(\d+)/g)].map(m => parseInt(m[1]));
+  if (priceMatches.length) price = Math.max(...priceMatches);
+
+  // Extract rooms
+  const roomMatch = r.match(/(\d+)\s*(?:room|bedroom)/);
+  if (roomMatch) rooms = parseInt(roomMatch[1]);
+
+  // Extract children
+  const childMatch = r.match(/(\d+)\s*(?:child|kid|children)/);
+  if (childMatch) children = parseInt(childMatch[1]);
+
+  // Extract city
+  const cities = ['paris','dubai','tokyo','new york','london','barcelona','algiers','oran','istanbul','marrakech'];
+  for (const c of cities) { if (r.includes(c)) { city = c; break; } }
+
+  return { city, price, rooms, children };
 }
 
 /* ══════════ TOAST ══════════ */
@@ -792,8 +918,8 @@ window.addEventListener('DOMContentLoaded', () => {
       // Add dashboard link
       const dashLink = document.createElement('a');
       dashLink.href = 'owner-dashboard.html';
-      dashLink.className = 'nav-btn';
-      dashLink.style.cssText = 'margin-right:8px;background:linear-gradient(135deg,#4f6b18,#6b8e23);color:#fff;font-size:10px;';
+      dashLink.className = 'nav-btn nav-btn-dash';
+      dashLink.style.cssText = 'margin-right:8px;';
       dashLink.textContent = 'Dashboard';
       loggedDiv.insertBefore(dashLink, loggedDiv.firstChild);
     }

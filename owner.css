@@ -756,12 +756,14 @@ nav {
 }
 /* Selected state — DARK MODE (default): gold glow */
 .star-btn.active,
-.star-btn[aria-checked="true"] {
+.star-btn[aria-checked="true"],
+.star-btn:focus-visible {
   background: linear-gradient(120deg, var(--gold-dark) 0%, var(--gold) 100%) !important;
   border-color: var(--gold) !important;
   color: #050608 !important;
   box-shadow: 0 0 0 3px var(--gold), 0 0 20px 6px rgba(201, 169, 110, 0.75), 0 0 50px 10px rgba(201, 169, 110, 0.35) !important;
   transform: scale(1.08) !important;
+  outline: none !important;
 }
 
 /* Selected state — LIGHT MODE (day): green glow */
