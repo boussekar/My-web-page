@@ -159,28 +159,38 @@
             </div>
 
             <div class="field-row">
-              <div class="field-group">
-                <label class="field-label" for="f-stars">Star Rating <span class="req">*</span></label>
-                <div class="star-selector" id="starSelector" role="radiogroup" aria-label="Hotel star rating">
-                  <!-- Each button visually represents N stars; clicking selects that rating -->
-                  <button type="button" class="star-btn" data-val="1" role="radio" aria-checked="false" aria-label="1 star">
-                    <span class="star">★</span>
-                  </button>
-                  <button type="button" class="star-btn" data-val="2" role="radio" aria-checked="false" aria-label="2 stars">
-                    <span class="star">★</span><span class="star">★</span>
-                  </button>
-                  <button type="button" class="star-btn" data-val="3" role="radio" aria-checked="false" aria-label="3 stars">
-                    <span class="star">★</span><span class="star">★</span><span class="star">★</span>
-                  </button>
-                  <button type="button" class="star-btn" data-val="4" role="radio" aria-checked="false" aria-label="4 stars">
-                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-                  </button>
-                  <button type="button" class="star-btn" data-val="5" role="radio" aria-checked="false" aria-label="5 stars">
-                    <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-                  </button>
+              <div class="field-group" style="grid-column:1/-1">
+                <label class="field-label">Star Rating <span class="req">*</span></label>
+                <div class="amenity-grid star-rating-grid" id="starSelector" role="radiogroup" aria-label="Hotel star rating">
+                  <label class="amenity-item star-rating-item" id="sr-1">
+                    <input type="radio" name="star-rating" value="1" class="star-radio"/>
+                    <div class="amenity-icon">★</div>
+                   
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-2">
+                    <input type="radio" name="star-rating" value="2" class="star-radio"/>
+                    <div class="amenity-icon">★★</div>
+                   
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-3">
+                    <input type="radio" name="star-rating" value="3" class="star-radio"/>
+                    <div class="amenity-icon">★★★</div>
+                    
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-4">
+                    <input type="radio" name="star-rating" value="4" class="star-radio"/>
+                    <div class="amenity-icon">★★★★</div>
+                    
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-5">
+                    <input type="radio" name="star-rating" value="5" class="star-radio"/>
+                    
+                    <div class="amenity-icon">★★★★★</div>
+                    
+                  </label>
                 </div>
-                <input type="hidden" id="f-stars" value="5"/>
-                <div class="star-note" id="starValueLabel">Selected rating: 5 stars</div>
+                <input type="hidden" id="f-stars" value=""/>
+                <div class="star-note" id="starValueLabel">Select a star rating</div>
               </div>
               <div class="field-group">
                 <label class="field-label">Property Type</label>
@@ -280,42 +290,42 @@
             <div class="amenity-section">
               <div class="amenity-section-title">Wellness & Recreation</div>
               <div class="amenity-grid">
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="spa"/> <div class="amenity-icon">◈</div><div class="amenity-name">Spa & Wellness</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="pool" checked/> <div class="amenity-icon">◈</div><div class="amenity-name">Swimming Pool</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="gym"/> <div class="amenity-icon">◈</div><div class="amenity-name">Fitness Centre</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="tennis"/> <div class="amenity-icon">◈</div><div class="amenity-name">Tennis Court</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="beach"/> <div class="amenity-icon">◈</div><div class="amenity-name">Beach Access</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="yoga"/> <div class="amenity-icon">◈</div><div class="amenity-name">Yoga Studio</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="spa"/><div class="amenity-icon">◈</div><div class="amenity-name">Spa & Wellness</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="pool" checked/><div class="amenity-icon">◈</div><div class="amenity-name">Swimming Pool</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="gym"/><div class="amenity-icon">◈</div><div class="amenity-name">Fitness Centre</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="tennis"/><div class="amenity-icon">◈</div><div class="amenity-name">Tennis Court</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="beach"/><div class="amenity-icon">◈</div><div class="amenity-name">Beach Access</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="yoga"/><div class="amenity-icon">◈</div><div class="amenity-name">Yoga Studio</div></label>
               </div>
             </div>
 
             <div class="amenity-section">
               <div class="amenity-section-title">Dining & Entertainment</div>
               <div class="amenity-grid">
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="restaurant" checked/> <div class="amenity-icon">◈</div><div class="amenity-name">Restaurant</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="bar" checked/> <div class="amenity-icon">◈</div><div class="amenity-name">Bar & Lounge</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="rooftop"/> <div class="amenity-icon">◈</div><div class="amenity-name">Rooftop Bar</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="michelin"/> <div class="amenity-icon">◈</div><div class="amenity-name">Michelin Restaurant</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="roomservice"/> <div class="amenity-icon">◈</div><div class="amenity-name">24h Room Service</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="breakfast"/> <div class="amenity-icon">◈</div><div class="amenity-name">Breakfast Included</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="restaurant" checked/><div class="amenity-icon">◈</div><div class="amenity-name">Restaurant</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="bar" checked/><div class="amenity-icon">◈</div><div class="amenity-name">Bar & Lounge</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="rooftop"/><div class="amenity-icon">◈</div><div class="amenity-name">Rooftop Bar</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="michelin"/><div class="amenity-icon">◈</div><div class="amenity-name">Michelin Restaurant</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="roomservice"/><div class="amenity-icon">◈</div><div class="amenity-name">24h Room Service</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="breakfast"/><div class="amenity-icon">◈</div><div class="amenity-name">Breakfast Included</div></label>
               </div>
             </div>
 
             <div class="amenity-section">
               <div class="amenity-section-title">Services & Facilities</div>
               <div class="amenity-grid">
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="concierge" checked/> <div class="amenity-icon">◈</div><div class="amenity-name">24h Concierge</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="wifi" checked/> <div class="amenity-icon">◈</div><div class="amenity-name">High-Speed Wi-Fi</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="transfer"/> <div class="amenity-icon">◈</div><div class="amenity-name">Airport Transfer</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="valet"/> <div class="amenity-icon">◈</div><div class="amenity-name">Valet Parking</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="butler"/> <div class="amenity-icon">◈</div><div class="amenity-name">Butler Service</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="laundry"/> <div class="amenity-icon">◈</div><div class="amenity-name">Laundry Service</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="business"/> <div class="amenity-icon">◈</div><div class="amenity-name">Business Centre</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="events"/> <div class="amenity-icon">◈</div><div class="amenity-name">Event Spaces</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="childcare"/> <div class="amenity-icon">◈</div><div class="amenity-name">Childcare</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="pets"/> <div class="amenity-icon">◈</div><div class="amenity-name">Pet Friendly</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="accessible"/> <div class="amenity-icon">◈</div><div class="amenity-name">Accessibility</div></label>
-                <label class="amenity-item"><input type="checkbox" name="amenity" value="eco"/> <div class="amenity-icon">◈</div><div class="amenity-name">Eco Certified</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="concierge" checked/><div class="amenity-icon">◈</div><div class="amenity-name">24h Concierge</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="wifi" checked/><div class="amenity-icon">◈</div><div class="amenity-name">High-Speed Wi-Fi</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="transfer"/><div class="amenity-icon">◈</div><div class="amenity-name">Airport Transfer</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="valet"/><div class="amenity-icon">◈</div><div class="amenity-name">Valet Parking</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="butler"/><div class="amenity-icon">◈</div><div class="amenity-name">Butler Service</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="laundry"/><div class="amenity-icon">◈</div><div class="amenity-name">Laundry Service</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="business"/><div class="amenity-icon">◈</div><div class="amenity-name">Business Centre</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="events"/><div class="amenity-icon">◈</div><div class="amenity-name">Event Spaces</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="childcare"/><div class="amenity-icon">◈</div><div class="amenity-name">Childcare</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="pets"/><div class="amenity-icon">◈</div><div class="amenity-name">Pet Friendly</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="accessible"/><div class="amenity-icon">◈</div><div class="amenity-name">Accessibility</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="eco"/><div class="amenity-icon">◈</div><div class="amenity-name">Eco Certified</div></label>
               </div>
             </div>
 

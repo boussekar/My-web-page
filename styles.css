@@ -35,7 +35,7 @@ body.light-mode {
   --bg3:         #f0f6ec;
   --bg4:         #efe9df;
   --border:      rgba(107,142,35,0.12);
-  --border-s:    rgba(107,142,35,0.06);
+  --border-s:    rgba(107,142,35,0.50);
   --text:        #22322b;
   --text-m:      #5b6b5f;
   --gold:        #6b8e23; /* elegant green */
@@ -487,8 +487,18 @@ body.light-mode .hero-orb-2 { background:radial-gradient(circle,rgba(160,120,64,
   color:rgba(201,169,110,0.18); letter-spacing:4px; transition:transform 0.6s ease;
 }
 .hotel-card:hover .hotel-card-img-inner { transform:scale(1.06); }
-.hotel-badge { position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.75); border:1px solid var(--border); color:var(--gold); font-size:10px; padding:4px 10px; }
-
+.hotel-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: 600;
+}
 /* View Photos button on card */
 .hotel-view-photos {
   position:absolute; bottom:10px; left:50%; transform:translateX(-50%);

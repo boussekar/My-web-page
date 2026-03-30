@@ -281,7 +281,7 @@ button { font-family: 'Jost', sans-serif; cursor:pointer; }
   font-size: 11px; color: var(--text-m); line-height: 1.6;
   margin-bottom: 20px;
 }
-.agree-check input { accent-color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+.agree-check input { accent-color: var(--gold); margin-top: 0; flex-shrink: 0; }
 
 /* ── Animations ── */
 @keyframes fadeUp {
