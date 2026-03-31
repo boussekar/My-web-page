@@ -29,24 +29,24 @@
 
 /* Light mode overrides */
 body.light-mode {
-  --black: #f6f9f4;
-  --dark: #ffffff;
-  --dark2: #f0f6ec;
-  --dark3: #efe9df;
-  --dark4: #f0efe8;
-  --mid: #e6efe0;
-  --border: rgba(107,142,35,0.12);
-  --border-soft: rgba(107,142,35,0.06);
-  --text: #22322b;
-  --text-muted: #5b6b5f;
-  --white: #0b1b16;
-  --gold: #6b8e23; /* elegant green */
-  --gold-light: #b9cfa1;
-  --gold-dark: #4f6b18;
-  --gold-glow: rgba(107,142,35,0.12);
-  --navbar-bg: rgba(246,249,244,0.98);
-  --card-bg: #ffffff;
-  --shadow: 0 8px 24px rgba(79,107,24,0.06);
+  --black: #f0f6f4;
+  --dark: #fafcfb;
+  --dark2: #eef4f2;
+  --dark3: #ebf1ef;
+  --dark4: #e9eff0;
+  --mid: #e0ede8;
+  --border: rgba(64,138,113,0.12);
+  --border-soft: rgba(64,138,113,0.06);
+  --text: #091413;
+  --text-muted: #2a5f4e;
+  --white: #091413;
+  --gold: #408A71; /* teal green */
+  --gold-light: #B0E4CC;
+  --gold-dark: #285A48;
+  --gold-glow: rgba(64,138,113,0.12);
+  --navbar-bg: rgba(240,246,244,0.98);
+  --card-bg: #fafcfb;
+  --shadow: 0 8px 24px rgba(40,90,72,0.06);
 }
 
 *,
@@ -1813,12 +1813,12 @@ body.light-mode .radio-title {
   position: fixed;
   inset: 0;
   z-index: 5000;
-  background: rgba(8, 8, 8, 0.97);
+  background: rgba(8, 8, 8, 0.7);
   display: none;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
 }
 .success-overlay.show {
   display: flex;

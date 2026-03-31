@@ -82,8 +82,8 @@ navLinks.forEach(link => {
     if (link.getAttribute('href') === 'owner.html') {
       e.preventDefault();
       const curUser = JSON.parse(localStorage.getItem('aurum-user') || 'null');
-      if (!curUser) {
-        // Guest — show tip asking them to sign in as owner
+      if (!curUser || curUser.role !== 'owner') {
+        // Guest or logged in as guest — show tip asking them to sign in as owner
         showSideSigninTip(link, null, 'You need to sign in as an owner to list your property');
       } else {
         window.location.href = 'owner.html';
@@ -879,11 +879,13 @@ function showToast(msg, type='') {
 /* ══════════ SCROLL ANIM ══════════ */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.style.animation='fadeUp 0.6s ease forwards'; obs.unobserve(e.target); }
+    if (e.isIntersecting) {
+      e.target.style.animation='fadeUp 0.6s ease forwards';
+      obs.unobserve(e.target);
+    }
   });
 }, { threshold:0.1 });
 document.querySelectorAll('.featured-card, .why-feat').forEach(el => { el.style.opacity='0'; obs.observe(el); });
-
 /* ══════════ INIT ══════════ */
 window.addEventListener('DOMContentLoaded', () => {
   renderResults(filterHotels('Paris',1,0,'any'), 'Paris', 1, 0, 'any');

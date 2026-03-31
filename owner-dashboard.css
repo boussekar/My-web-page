@@ -540,15 +540,15 @@ body.nav-hidden .dash-sidebar {
     grid-template-columns: 180px 1fr;
 }
 
-/* Light mode — switch to olive green palette */
+/* Light mode — switch to teal green palette */
 body.light-mode .btn-dash-gold {
-  background: linear-gradient(135deg, #4f6b18, #8cb043);
-  color: #f0f6ec;
+  background: linear-gradient(135deg, #285A48, #408A71);
+  color: #f0f6f4;
 }
 body.light-mode .btn-dash-outline {
-  border-color: rgba(107,142,35,0.4);
-  color: #6b8e23;
+  border-color: rgba(64,138,113,0.4);
+  color: #408A71;
 }
 body.light-mode .btn-dash-outline:hover {
-  background: rgba(107,142,35,0.1);
+  background: rgba(64,138,113,0.1);
 }

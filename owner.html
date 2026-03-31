@@ -617,6 +617,17 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <!-- Owner-only access protection -->
+  <script>
+    (function() {
+      const user = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+      if (!user || user.role !== 'owner') {
+        // Redirect guests to auth page
+        window.location.href = 'auth.html';
+      }
+    })();
+  </script>
+
   <script src="owner.js"></script>
 </body>
 </html>
