@@ -202,6 +202,45 @@ document.getElementById('bookingFilter')?.addEventListener('change', function() 
   renderBookingsTable(this.value);
 });
 
+/* ── Dashboard Custom Dropdown Init ── */
+function initDashSelect(containerId, hiddenSelectId, onChange) {
+  const container = document.getElementById(containerId);
+  const hiddenSel = document.getElementById(hiddenSelectId);
+  if (!container || !hiddenSel) return;
+
+  const trigger = container.querySelector('.dash-select-trigger');
+  const valueSpan = container.querySelector('.dash-select-value');
+  const options = container.querySelectorAll('.dash-select-option');
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.dash-custom-select.open').forEach(el => {
+      if (el !== container) el.classList.remove('open');
+    });
+    container.classList.toggle('open');
+  });
+
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const val = opt.dataset.value;
+      const text = opt.textContent;
+      hiddenSel.value = val;
+      valueSpan.textContent = text;
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      container.classList.remove('open');
+      if (onChange) onChange(val);
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!container.contains(e.target)) container.classList.remove('open');
+  });
+}
+
+initDashSelect('bookingFilterWrap', 'bookingFilter', (val) => renderBookingsTable(val));
+initDashSelect('revPeriodWrap', 'revPeriod', (val) => { /* period change handler */ });
+
 /* ── Init ── */
 renderRecentBookings();
 renderRevChart();

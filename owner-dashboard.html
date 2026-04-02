@@ -81,9 +81,6 @@
           <h1 class="dash-title">Good morning, <em id="ownerGreetName">Partner</em></h1>
           <p class="dash-sub">Here's an overview of your portfolio performance.</p>
         </div>
-        <div class="dash-header-actions">
-          <a href="owner.html" class="btn-dash-outline">+ List New Property</a>
-        </div>
       </div>
 
       <!-- KPI Cards -->
@@ -196,7 +193,6 @@
           <h1 class="dash-title">My <em>Properties</em></h1>
           <p class="dash-sub">Manage and monitor all your listed properties.</p>
         </div>
-        <a href="owner.html" class="btn-dash-gold">+ Add Property</a>
       </div>
       <div class="properties-grid" id="propertiesGrid"></div>
     </div>
@@ -209,7 +205,19 @@
           <h1 class="dash-title">All <em>Bookings</em></h1>
         </div>
         <div class="filter-row">
-          <select class="dash-select" id="bookingFilter">
+          <div class="dash-custom-select" id="bookingFilterWrap">
+            <div class="dash-select-trigger">
+              <span class="dash-select-value">All Bookings</span>
+              <svg class="dash-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="dash-select-dropdown">
+              <div class="dash-select-option selected" data-value="all">All Bookings</div>
+              <div class="dash-select-option" data-value="upcoming">Upcoming</div>
+              <div class="dash-select-option" data-value="active">Active</div>
+              <div class="dash-select-option" data-value="completed">Completed</div>
+            </div>
+          </div>
+          <select class="dash-select-hidden" id="bookingFilter" style="display:none">
             <option value="all">All Bookings</option>
             <option value="upcoming">Upcoming</option>
             <option value="active">Active</option>
@@ -260,7 +268,18 @@
           <div class="dash-eyebrow">Financials</div>
           <h1 class="dash-title">Revenue <em>Analytics</em></h1>
         </div>
-        <select class="dash-select" id="revPeriod">
+        <div class="dash-custom-select" id="revPeriodWrap">
+          <div class="dash-select-trigger">
+            <span class="dash-select-value">This Month</span>
+            <svg class="dash-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="dash-select-dropdown">
+            <div class="dash-select-option selected" data-value="month">This Month</div>
+            <div class="dash-select-option" data-value="quarter">This Quarter</div>
+            <div class="dash-select-option" data-value="year">This Year</div>
+          </div>
+        </div>
+        <select class="dash-select-hidden" id="revPeriod" style="display:none">
           <option value="month">This Month</option>
           <option value="quarter">This Quarter</option>
           <option value="year">This Year</option>

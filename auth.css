@@ -130,14 +130,124 @@ body.light-mode .auth-bg-grid {
     linear-gradient(90deg, rgba(107,142,35,1) 1px, transparent 1px);
 }
 
+/* Extra background orbs */
+.auth-bg-orb-3 {
+  width: 300px;
+  height: 300px;
+  top: 40%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 70%);
+  animation: bgOrbFloat3 18s ease-in-out infinite alternate;
+}
+.auth-bg-orb-4 {
+  width: 200px;
+  height: 200px;
+  top: 20%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(201,169,110,0.03) 0%, transparent 70%);
+  animation: bgOrbFloat4 22s ease-in-out infinite alternate;
+}
+body.light-mode .auth-bg-orb-3 {
+  background: radial-gradient(circle, rgba(107,142,35,0.05) 0%, transparent 70%);
+}
+body.light-mode .auth-bg-orb-4 {
+  background: radial-gradient(circle, rgba(107,142,35,0.04) 0%, transparent 70%);
+}
+@keyframes bgOrbFloat3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -50px) scale(1.15); }
+}
+@keyframes bgOrbFloat4 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-40px, 30px); }
+}
+
+/* Floating particles */
+.auth-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.auth-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  animation: authParticleFloat linear infinite;
+}
+.auth-particle.p1 { left: 5%; top: 10%; animation-duration: 10s; animation-delay: 0s; }
+.auth-particle.p2 { left: 15%; top: 60%; animation-duration: 12s; animation-delay: 2s; }
+.auth-particle.p3 { left: 25%; top: 30%; animation-duration: 9s; animation-delay: 4s; }
+.auth-particle.p4 { left: 35%; top: 75%; animation-duration: 14s; animation-delay: 1s; }
+.auth-particle.p5 { left: 45%; top: 20%; animation-duration: 11s; animation-delay: 3s; }
+.auth-particle.p6 { left: 55%; top: 50%; animation-duration: 13s; animation-delay: 5s; }
+.auth-particle.p7 { left: 65%; top: 85%; animation-duration: 10s; animation-delay: 1.5s; }
+.auth-particle.p8 { left: 75%; top: 35%; animation-duration: 12s; animation-delay: 3.5s; }
+.auth-particle.p9 { left: 85%; top: 65%; animation-duration: 9s; animation-delay: 2.5s; }
+.auth-particle.p10 { left: 92%; top: 15%; animation-duration: 14s; animation-delay: 4.5s; }
+.auth-particle.p11 { left: 8%; top: 90%; animation-duration: 11s; animation-delay: 0.5s; }
+.auth-particle.p12 { left: 18%; top: 45%; animation-duration: 13s; animation-delay: 6s; }
+.auth-particle.p13 { left: 30%; top: 12%; animation-duration: 10s; animation-delay: 5.5s; }
+.auth-particle.p14 { left: 42%; top: 68%; animation-duration: 12s; animation-delay: 7s; }
+.auth-particle.p15 { left: 52%; top: 28%; animation-duration: 9s; animation-delay: 1.8s; }
+.auth-particle.p16 { left: 62%; top: 92%; animation-duration: 14s; animation-delay: 3.8s; }
+.auth-particle.p17 { left: 72%; top: 55%; animation-duration: 11s; animation-delay: 6.5s; }
+.auth-particle.p18 { left: 82%; top: 8%; animation-duration: 13s; animation-delay: 2.8s; }
+.auth-particle.p19 { left: 88%; top: 78%; animation-duration: 10s; animation-delay: 4.8s; }
+.auth-particle.p20 { left: 95%; top: 42%; animation-duration: 12s; animation-delay: 7.5s; }
+@keyframes authParticleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0); }
+  15% { opacity: 0.6; transform: translateY(-20px) scale(1); }
+  85% { opacity: 0.2; transform: translateY(-100px) scale(0.6); }
+  100% { opacity: 0; transform: translateY(-120px) scale(0); }
+}
+
+/* Floating lines */
+.auth-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.auth-line {
+  position: absolute;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  opacity: 0.05;
+}
+.auth-line-1 { width: 1px; height: 180px; left: 8%; top: 10%; animation: authLineDrift1 14s ease-in-out infinite alternate; }
+.auth-line-2 { width: 1px; height: 140px; right: 15%; top: 20%; animation: authLineDrift2 18s ease-in-out infinite alternate; }
+.auth-line-3 { width: 1px; height: 160px; left: 25%; bottom: 15%; animation: authLineDrift3 12s ease-in-out infinite alternate; }
+.auth-line-4 { width: 1px; height: 120px; left: 38%; top: 5%; animation: authLineDrift4 16s ease-in-out infinite alternate; }
+.auth-line-5 { width: 1px; height: 200px; right: 30%; bottom: 10%; animation: authLineDrift5 20s ease-in-out infinite alternate; }
+.auth-line-6 { width: 1px; height: 150px; left: 55%; top: 25%; animation: authLineDrift6 13s ease-in-out infinite alternate; }
+.auth-line-7 { width: 1px; height: 130px; right: 8%; top: 50%; animation: authLineDrift7 17s ease-in-out infinite alternate; }
+.auth-line-8 { width: 1px; height: 170px; left: 70%; bottom: 20%; animation: authLineDrift8 15s ease-in-out infinite alternate; }
+.auth-line-9 { width: 1px; height: 110px; left: 88%; top: 35%; animation: authLineDrift9 19s ease-in-out infinite alternate; }
+.auth-line-10 { width: 1px; height: 190px; right: 45%; top: 60%; animation: authLineDrift10 21s ease-in-out infinite alternate; }
+body.light-mode .auth-line {
+  background: linear-gradient(to bottom, transparent, #408A71, transparent);
+}
+@keyframes authLineDrift1 { 0% { transform: translateY(0) rotate(0deg); opacity: 0.04; } 100% { transform: translateY(30px) rotate(4deg); opacity: 0.09; } }
+@keyframes authLineDrift2 { 0% { transform: translateY(0) rotate(0deg); opacity: 0.03; } 100% { transform: translateY(-40px) rotate(-3deg); opacity: 0.08; } }
+@keyframes authLineDrift3 { 0% { transform: translateY(0); opacity: 0.04; } 100% { transform: translateY(50px); opacity: 0.07; } }
+@keyframes authLineDrift4 { 0% { transform: translateY(0) rotate(2deg); opacity: 0.03; } 100% { transform: translateY(-35px) rotate(-2deg); opacity: 0.08; } }
+@keyframes authLineDrift5 { 0% { transform: translateY(0) rotate(-1deg); opacity: 0.04; } 100% { transform: translateY(40px) rotate(3deg); opacity: 0.07; } }
+@keyframes authLineDrift6 { 0% { transform: translateY(0) rotate(1deg); opacity: 0.03; } 100% { transform: translateY(-50px) rotate(-4deg); opacity: 0.09; } }
+@keyframes authLineDrift7 { 0% { transform: translateY(0) rotate(-2deg); opacity: 0.04; } 100% { transform: translateY(30px) rotate(2deg); opacity: 0.08; } }
+@keyframes authLineDrift8 { 0% { transform: translateY(0) rotate(0deg); opacity: 0.03; } 100% { transform: translateY(-45px) rotate(-3deg); opacity: 0.07; } }
+@keyframes authLineDrift9 { 0% { transform: translateY(0) rotate(3deg); opacity: 0.04; } 100% { transform: translateY(35px) rotate(-2deg); opacity: 0.08; } }
+@keyframes authLineDrift10 { 0% { transform: translateY(0) rotate(-1deg); opacity: 0.03; } 100% { transform: translateY(-55px) rotate(4deg); opacity: 0.09; } }
+
 /* ── Center Wrapper ── */
 .auth-center-wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+  justify-content: flex-start;
+  padding-top: 0;
+  padding-bottom: 40px;
   position: relative;
   z-index: 1;
 }
@@ -265,7 +375,7 @@ body.light-mode .theme-toggle-btn:hover {
 .auth-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  padding: 32px 36px;
+  padding: 20px 36px;
   width: 100%;
   max-width: 400px;
   backdrop-filter: blur(20px);
@@ -273,6 +383,7 @@ body.light-mode .theme-toggle-btn:hover {
   opacity: 1;
   animation: cardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s ease-out;
   overflow: hidden;
+  margin-top: -50px;
 }
 .auth-card::before {
   content: '';
@@ -777,10 +888,13 @@ body.light-mode .pw-toggle:hover {
 
 /* Owner Button */
 .btn-auth.owner-btn {
-  background: linear-gradient(135deg, #1a3a1a, #2d7a2d);
+  background: linear-gradient(135deg, var(--gold-d), var(--gold));
 }
 body.light-mode .btn-auth.owner-btn {
   background: linear-gradient(135deg, #285A48, #408A71);
+}
+.btn-auth.owner-btn:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
 }
 
 /* Divider */

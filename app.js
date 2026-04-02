@@ -233,6 +233,67 @@ const hotelDatabase = [
   },
 ];
 
+/* ══════════ CUSTOM SEARCH DROPDOWNS ══════════ */
+function initCustomSelect(id, hiddenSelectId) {
+  const container = document.getElementById(id);
+  const hiddenSel = document.getElementById(hiddenSelectId);
+  if (!container || !hiddenSel) return;
+
+  const trigger = container.querySelector('.custom-select-trigger');
+  const dropdown = container.querySelector('.custom-select-dropdown');
+  const valueSpan = container.querySelector('.custom-select-value');
+  const options = container.querySelectorAll('.custom-select-option');
+
+  // Toggle on trigger click
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    // Close others
+    document.querySelectorAll('.custom-select.open').forEach(el => {
+      if (el !== container) el.classList.remove('open');
+    });
+    container.classList.toggle('open');
+  });
+
+  // Option click
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const val = opt.dataset.value;
+      const text = opt.textContent;
+      hiddenSel.value = val;
+      valueSpan.textContent = text;
+      options.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      container.classList.remove('open');
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!container.contains(e.target)) {
+      container.classList.remove('open');
+    }
+  });
+
+  // Sync display when hidden select is changed programmatically
+  hiddenSel.addEventListener('change', () => syncCustomSelect(container, hiddenSel, options, valueSpan));
+}
+
+function syncCustomSelect(container, hiddenSel, options, valueSpan) {
+  const val = hiddenSel.value;
+  options.forEach(opt => {
+    if (opt.dataset.value === val) {
+      opt.classList.add('selected');
+      valueSpan.textContent = opt.textContent;
+    } else {
+      opt.classList.remove('selected');
+    }
+  });
+}
+
+initCustomSelect('roomsSelect', 's-rooms');
+initCustomSelect('childrenSelect', 's-children');
+initCustomSelect('budgetSelect', 's-price');
+
 /* ══════════ SEARCH ══════════ */
 document.getElementById('searchBtn').addEventListener('click', () => {
   const location = document.getElementById('s-location').value.trim();

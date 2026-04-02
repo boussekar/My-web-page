@@ -780,6 +780,203 @@ body.light-mode .filter-select option:checked {
 @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
+/* ═══════════ CUSTOM SEARCH DROPDOWNS ═══════════ */
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  padding: 2px 0;
+  user-select: none;
+}
+
+.custom-select-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.custom-select-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0.8;
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: -16px;
+  right: -16px;
+  min-width: 180px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.96);
+  transform-origin: bottom center;
+  transition:
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.3s;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.08);
+  padding: 6px 0;
+  border-radius: 2px;
+}
+
+.custom-select-wide .custom-select-dropdown {
+  min-width: 200px;
+}
+
+.custom-select.open .custom-select-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1) translateY(-4px);
+}
+
+.custom-select.open .custom-select-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.custom-select.open .custom-select-value {
+  color: var(--gold-light);
+}
+
+/* Dropdown items */
+.custom-select-option {
+  padding: 10px 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-m);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    padding-left 0.25s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-select-option::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.custom-select-option:hover {
+  background: rgba(201,169,110,0.06);
+  color: var(--text);
+  padding-left: 24px;
+}
+
+.custom-select-option:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-select-option.selected {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.custom-select-option.selected::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-select-option.selected::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  width: 6px;
+  height: 3px;
+  border-left: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+  transform: rotate(-45deg);
+  opacity: 0.8;
+}
+
+/* Dropdown entrance animation — staggered item reveal */
+.custom-select.open .custom-select-option {
+  animation: dropdownItemIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+.custom-select.open .custom-select-option:nth-child(1) { animation-delay: 0.03s; }
+.custom-select.open .custom-select-option:nth-child(2) { animation-delay: 0.06s; }
+.custom-select.open .custom-select-option:nth-child(3) { animation-delay: 0.09s; }
+.custom-select.open .custom-select-option:nth-child(4) { animation-delay: 0.12s; }
+.custom-select.open .custom-select-option:nth-child(5) { animation-delay: 0.15s; }
+.custom-select.open .custom-select-option:nth-child(6) { animation-delay: 0.18s; }
+
+@keyframes dropdownItemIn {
+  0%   { opacity: 0; transform: translateX(-8px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Hover shimmer on option */
+.custom-select-option::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.08), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.custom-select-option:hover::after {
+  opacity: 1;
+}
+
+/* Focus glow on trigger when open */
+.custom-select.open .custom-select-trigger {
+  outline: none;
+}
+
+/* Pulse dot on trigger when dropdown is open */
+.custom-select-trigger::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.custom-select.open .custom-select-trigger::before {
+  opacity: 1;
+  animation: triggerPulse 1.5s ease-in-out infinite;
+}
+@keyframes triggerPulse {
+  0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-50%) scale(1.5); opacity: 1; }
+}
+
 /* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:1100px){
   .featured-grid { grid-template-columns:1fr 1fr; grid-template-rows:auto; }

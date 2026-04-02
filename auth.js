@@ -35,9 +35,6 @@ const roleOwner = document.getElementById('roleOwner');
 const guestSection = document.getElementById('guestSection');
 const ownerSection = document.getElementById('ownerSection');
 
-roleGuest.addEventListener('click', () => switchRole('guest'));
-roleOwner.addEventListener('click', () => switchRole('owner'));
-
 function switchRole(role) {
   if (role === 'guest') {
     roleGuest.classList.add('active');
@@ -51,6 +48,17 @@ function switchRole(role) {
     guestSection.classList.add('hidden');
   }
 }
+
+roleGuest.addEventListener('click', () => switchRole('guest'));
+roleOwner.addEventListener('click', () => switchRole('owner'));
+
+/* ── Auto-switch role from URL param (must run after switchRole is defined) ── */
+(function() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('role') === 'owner') {
+    switchRole('owner');
+  }
+})();
 
 /* ── Guest Tabs ── */
 const tabLogin = document.getElementById('tabLogin');

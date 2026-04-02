@@ -364,6 +364,163 @@
 }
 .filter-row { display: flex; gap: 10px; align-items: center; }
 
+/* ── Dashboard Custom Dropdowns ── */
+.dash-custom-select {
+  position: relative;
+  min-width: 160px;
+}
+
+.dash-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 14px;
+  background: var(--dark3);
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.dash-custom-select:hover .dash-select-trigger {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.06);
+}
+
+.dash-select-value {
+  font-family: var(--font-b);
+  font-size: 12px;
+  color: var(--text);
+  transition: color 0.25s ease;
+}
+
+.dash-select-arrow {
+  width: 14px;
+  height: 14px;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  opacity: 0.8;
+}
+
+.dash-select-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  background: var(--dark3);
+  border: 1px solid var(--border-soft);
+  backdrop-filter: blur(20px);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top center;
+  transition:
+    opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.28s;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.06);
+  border-radius: 2px;
+  padding: 5px 0;
+}
+
+.dash-custom-select.open .dash-select-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.dash-custom-select.open .dash-select-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.dash-custom-select.open .dash-select-value {
+  color: var(--gold);
+}
+
+.dash-custom-select.open .dash-select-trigger {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.06);
+}
+
+.dash-select-option {
+  padding: 9px 14px;
+  font-family: var(--font-b);
+  font-size: 12px;
+  color: var(--text-m);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dash-select-option::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dash-select-option:hover {
+  background: rgba(201,169,110,0.07);
+  color: var(--text);
+  padding-left: 18px;
+}
+
+.dash-select-option:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dash-select-option.selected {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.dash-select-option.selected::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dash-select-option.selected::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  width: 6px;
+  height: 3px;
+  border-left: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+  transform: rotate(-45deg);
+  opacity: 0.7;
+}
+
+/* Staggered item entrance */
+.dash-custom-select.open .dash-select-option {
+  animation: dashOptIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateX(-6px);
+}
+.dash-custom-select.open .dash-select-option:nth-child(1) { animation-delay: 0.02s; }
+.dash-custom-select.open .dash-select-option:nth-child(2) { animation-delay: 0.05s; }
+.dash-custom-select.open .dash-select-option:nth-child(3) { animation-delay: 0.08s; }
+.dash-custom-select.open .dash-select-option:nth-child(4) { animation-delay: 0.11s; }
+
+@keyframes dashOptIn {
+  0%   { opacity: 0; transform: translateX(-6px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
 /* Nav Hide / Reveal */
 /* Hamburger button - pill-shaped, rotated to X when hidden */
 .btn-nav-hide {
@@ -515,7 +672,8 @@ body.nav-hidden .dash-sidebar {
   .list-prompt-card { padding: 28px 16px; }
   .lp-title { font-size: 22px; }
   .filter-row { width: 100%; }
-  .dash-select { width: 100%; }
+  .dash-custom-select { width: 100%; }
+  .dash-select-trigger { width: 100%; }
   #tab-revenue .kpi-grid { grid-template-columns: 1fr 1fr; }
   .btn-nav-reveal { top: 8px; right: 8px; }
 }

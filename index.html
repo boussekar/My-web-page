@@ -55,21 +55,61 @@
             </div>
             <div class="search-field">
               <label class="search-label">Rooms</label>
-              <select class="search-select" id="s-rooms">
+              <div class="custom-select" id="roomsSelect">
+                <div class="custom-select-trigger">
+                  <span class="custom-select-value">1 Room</span>
+                  <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+                <div class="custom-select-dropdown">
+                  <div class="custom-select-option selected" data-value="1">1 Room</div>
+                  <div class="custom-select-option" data-value="2">2 Rooms</div>
+                  <div class="custom-select-option" data-value="3">3 Rooms</div>
+                  <div class="custom-select-option" data-value="4">4 Rooms</div>
+                  <div class="custom-select-option" data-value="5">5+ Rooms</div>
+                </div>
+              </div>
+              <select class="search-select-hidden" id="s-rooms" style="display:none">
                 <option value="1">1 Room</option><option value="2">2 Rooms</option>
                 <option value="3">3 Rooms</option><option value="4">4 Rooms</option><option value="5">5+ Rooms</option>
               </select>
             </div>
             <div class="search-field">
               <label class="search-label">Children</label>
-              <select class="search-select" id="s-children">
+              <div class="custom-select" id="childrenSelect">
+                <div class="custom-select-trigger">
+                  <span class="custom-select-value">None</span>
+                  <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+                <div class="custom-select-dropdown">
+                  <div class="custom-select-option selected" data-value="0">None</div>
+                  <div class="custom-select-option" data-value="1">1 Child</div>
+                  <div class="custom-select-option" data-value="2">2 Children</div>
+                  <div class="custom-select-option" data-value="3">3 Children</div>
+                  <div class="custom-select-option" data-value="4">4+</div>
+                </div>
+              </div>
+              <select class="search-select-hidden" id="s-children" style="display:none">
                 <option value="0">None</option><option value="1">1 Child</option>
                 <option value="2">2 Children</option><option value="3">3 Children</option><option value="4">4+</option>
               </select>
             </div>
             <div class="search-field">
               <label class="search-label">Budget / Night</label>
-              <select class="search-select" id="s-price">
+              <div class="custom-select custom-select-wide" id="budgetSelect">
+                <div class="custom-select-trigger">
+                  <span class="custom-select-value">Any</span>
+                  <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+                <div class="custom-select-dropdown">
+                  <div class="custom-select-option selected" data-value="any">Any</div>
+                  <div class="custom-select-option" data-value="100">Up to $100</div>
+                  <div class="custom-select-option" data-value="300">Up to $300</div>
+                  <div class="custom-select-option" data-value="500">Up to $500</div>
+                  <div class="custom-select-option" data-value="1000">Up to $1000</div>
+                  <div class="custom-select-option" data-value="1001">$1000+</div>
+                </div>
+              </div>
+              <select class="search-select-hidden" id="s-price" style="display:none">
                 <option value="any">Any</option><option value="100">Up to $100</option>
                 <option value="300">Up to $300</option><option value="500">Up to $500</option>
                 <option value="1000">Up to $1000</option><option value="1001">$1000+</option>
