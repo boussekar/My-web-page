@@ -352,8 +352,10 @@ function createHotelCard(hotel, delay=0) {
   card.style.cssText = `animation:fadeUp 0.5s ease ${delay*0.07}s both`;
   const stars = '★'.repeat(hotel.stars)+'☆'.repeat(5-hotel.stars);
   card.innerHTML = `
-    <div class="hotel-card-img" style="background:linear-gradient(135deg,${hotel.color},#1a1a10)">
+
+    <div class="hotel-card-img" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&amp;w=800&amp;q=80'); background-size: cover; background-position: center;">
       <div class="hotel-card-img-inner">${hotel.initial}</div>
+
       <div class="hotel-badge">${hotel.stars} ★</div>
       <button class="hotel-view-photos">📷 View Photos</button>
     </div>

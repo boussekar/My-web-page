@@ -68,9 +68,38 @@ const monthlyRevenue = [
   { month:'Jun', bookings:139, gross:82100 },
   { month:'Jul', bookings:148, gross:84200 },
 ];
-const properties = [
-  { name: user?.hotelName || 'Your Property', city:'Your City', country:'', stars:5, rooms:56, bookings:148, revenue:84200, occ:83, status:'live' },
-];
+
+/* ── Properties (localStorage-backed) ── */
+function getProperties() {
+  try {
+    const stored = localStorage.getItem('aurum-owner-properties');
+    if (stored) return JSON.parse(stored);
+  } catch(e) {}
+  // Seed with default
+  const defaults = [
+    { name: user?.hotelName || 'Grand Hotel AURUM', city: 'Paris', country: 'France', stars: 5, rooms: 56, bookings:148, revenue:84200, occ:83, status:'live' }
+  ];
+  saveProperties(defaults);
+  return defaults;
+}
+
+function saveProperties(props) {
+  localStorage.setItem('aurum-owner-properties', JSON.stringify(props));
+}
+
+function getRooms() {
+  try {
+    const stored = localStorage.getItem('aurum-owner-rooms');
+    if (stored) return JSON.parse(stored);
+  } catch(e) {}
+  return null; // will use defaults in renderRoomGrid
+}
+
+function saveRooms(rooms) {
+  localStorage.setItem('aurum-owner-rooms', JSON.stringify(rooms));
+}
+
+let properties = getProperties();
 
 /* ── Render Recent Bookings ── */
 function renderRecentBookings() {
@@ -130,50 +159,112 @@ function renderBookingsTable(filter = 'all') {
 function renderProperties() {
   const el = document.getElementById('propertiesGrid');
   if (!el) return;
-  el.innerHTML = properties.map(p => `
-    <div class="prop-card">
-      <div class="prop-card-img" style="background:linear-gradient(135deg,#1a1208,#111108);">
-        <div class="prop-initials">${p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>
-        <div class="prop-status-badge ${p.status}">${p.status === 'live' ? '● Live' : '⏳ Under Review'}</div>
+  const hotelImages = [
+    'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&w=400&fit=crop',
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&w=400&fit=crop',
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&w=400&fit=crop',
+    'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&w=400&fit=crop',
+    'https://images.unsplash.com/photo-1578683014511-834f6e1df29e?ixlib=rb-4.0.3&w=400&fit=crop'
+  ];
+  el.innerHTML = properties.map((p, i) => {
+    const img = hotelImages[i % hotelImages.length];
+    return `
+      <div class="prop-card">
+        <div class="prop-card-img" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${img}'); background-size: cover; background-position: center;">
+          <div class="prop-initials">${p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>
+          <div class="prop-status-badge ${p.status}">${p.status === 'live' ? '● Live' : '⏳ Under Review'}</div>
+        </div>
+        <div class="prop-card-body">
+          <div class="prop-name">${p.name}</div>
+          <div class="prop-loc">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${[p.city, p.country].filter(Boolean).join(', ') || 'Location not set'}
+          </div>
+          <div class="prop-stars-row">
+            ${Array.from({length: p.stars || 5}, () => '<span class="prop-star">★</span>').join('')}
+          </div>
+          <div class="prop-stats">
+            <div><div class="ps-num">${p.rooms}</div><div class="ps-label">Rooms</div></div>
+            <div><div class="ps-num">${p.occ || 0}%</div><div class="ps-label">Occupancy</div></div>
+            <div><div class="ps-num">$${((p.revenue||0)/1000).toFixed(0)}k</div><div class="ps-label">Revenue</div></div>
+          </div>
+          <div class="prop-actions">
+            <button class="btn-prop-edit" onclick="openEditProp(${i})">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+            <button class="btn-prop-outline" onclick="switchDashTab('rooms')">Rooms</button>
+            <button class="btn-prop-outline" onclick="switchDashTab('bookings')">Bookings</button>
+          </div>
+        </div>
       </div>
-      <div class="prop-card-body">
-        <div class="prop-name">${p.name}</div>
-        <div class="prop-loc">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          ${[p.city, p.country].filter(Boolean).join(', ') || 'Location not set'}
-        </div>
-        <div class="prop-stats">
-          <div><div class="ps-num">${p.rooms}</div><div class="ps-label">Rooms</div></div>
-          <div><div class="ps-num">${p.occ}%</div><div class="ps-label">Occupancy</div></div>
-          <div><div class="ps-num">$${(p.revenue/1000).toFixed(0)}k</div><div class="ps-label">Revenue</div></div>
-        </div>
-        <div class="prop-actions">
-          <a href="owner.html" class="btn-prop-outline">Edit</a>
-          <button class="btn-prop-outline" onclick="switchDashTab('rooms')">Rooms</button>
-          <button class="btn-prop-outline" onclick="switchDashTab('bookings')">Bookings</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
   document.getElementById('kpiProperties').textContent = properties.length;
 }
 
+
 /* ── Render Room Grid ── */
+const ROOM_STATUSES = ['available', 'occupied', 'maintenance', 'reserved'];
+const ROOM_TYPE_NAMES = { DX:'Deluxe', SU:'Suite', GS:'Grand S.', PR:'Presid.' };
+
 function renderRoomGrid() {
   const el = document.getElementById('roomGrid');
   if (!el) return;
-  const types = ['DX','DX','DX','SU','SU','GS','GS','PR','DX','DX','DX','SU','DX','DX','SU','GS','DX','DX','DX','SU','GS','DX','PR','DX','DX','DX','SU','SU','DX','DX','DX','DX'];
-  const statuses = ['occupied','occupied','available','occupied','occupied','maintenance','occupied','occupied','occupied','available','occupied','occupied','reserved','occupied','occupied','occupied','available','occupied','occupied','occupied','occupied','maintenance','occupied','occupied','available','occupied','occupied','occupied','occupied','available','occupied','reserved'];
-  const typeNames = { DX:'Deluxe', SU:'Suite', GS:'Grand S.', PR:'Presid.' };
-  el.innerHTML = statuses.map((s, i) => {
+
+  // Load saved room data or use defaults
+  let roomData = getRooms();
+  if (!roomData) {
+    const types = ['DX','DX','DX','SU','SU','GS','GS','PR','DX','DX','DX','SU','DX','DX','SU','GS','DX','DX','DX','SU','GS','DX','PR','DX','DX','DX','SU','SU','DX','DX','DX','DX'];
+    const statuses = ['occupied','occupied','available','occupied','occupied','maintenance','occupied','occupied','occupied','available','occupied','occupied','reserved','occupied','occupied','occupied','available','occupied','occupied','occupied','occupied','maintenance','occupied','occupied','available','occupied','occupied','occupied','occupied','available','occupied','reserved'];
+    roomData = types.map((t, i) => ({ type: t, status: statuses[i] }));
+  }
+
+  // Persist if new
+  if (!localStorage.getItem('aurum-owner-rooms')) {
+    saveRooms(roomData);
+  }
+
+  // Render
+  el.innerHTML = roomData.map((r, i) => {
     const floor = Math.floor(i / 8) + 1;
     const num = (i % 8) + 1;
     const roomNum = `${floor}0${num}`;
-    return `<div class="room-cell ${s}" title="${roomNum} — ${typeNames[types[i]] || types[i]} — ${s}">
+    return `<div class="room-cell ${r.status}" data-room="${i}" title="${roomNum} — ${ROOM_TYPE_NAMES[r.type] || r.type} — ${r.status}\nClick to change status">
       <div class="room-num">${roomNum}</div>
-      <div class="room-type-label">${types[i]}</div>
+      <div class="room-type-label">${r.type}</div>
     </div>`;
   }).join('');
+
+  // Click to cycle status
+  el.querySelectorAll('.room-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const idx = parseInt(cell.dataset.room);
+      const current = roomData[idx].status;
+      const nextIdx = (ROOM_STATUSES.indexOf(current) + 1) % ROOM_STATUSES.length;
+      roomData[idx].status = ROOM_STATUSES[nextIdx];
+      cell.className = `room-cell ${roomData[idx].status}`;
+      cell.title = `${cell.querySelector('.room-num').textContent} — ${ROOM_TYPE_NAMES[roomData[idx].type]} — ${roomData[idx].status}\nClick to change status`;
+      saveRooms(roomData);
+      updateRoomSummary(roomData);
+      showToast(`Room ${cell.querySelector('.room-num').textContent} → ${roomData[idx].status}`);
+    });
+  });
+
+  updateRoomSummary(roomData);
+}
+
+function updateRoomSummary(roomData) {
+  const el = document.getElementById('roomSummary');
+  if (!el || !roomData) return;
+  const counts = { available: 0, occupied: 0, maintenance: 0, reserved: 0 };
+  roomData.forEach(r => { if (counts[r.status] !== undefined) counts[r.status]++; });
+  el.innerHTML = `
+    <div class="rs-item"><span class="rs-count green">${counts.occupied}</span><span class="rs-label">Occupied</span></div>
+    <div class="rs-item"><span class="rs-count teal">${counts.available}</span><span class="rs-label">Available</span></div>
+    <div class="rs-item"><span class="rs-count yellow">${counts.maintenance}</span><span class="rs-label">Maintenance</span></div>
+    <div class="rs-item"><span class="rs-count gray">${counts.reserved}</span><span class="rs-label">Reserved</span></div>
+  `;
 }
 
 /* ── Render Revenue Breakdown ── */
@@ -240,6 +331,99 @@ function initDashSelect(containerId, hiddenSelectId, onChange) {
 
 initDashSelect('bookingFilterWrap', 'bookingFilter', (val) => renderBookingsTable(val));
 initDashSelect('revPeriodWrap', 'revPeriod', (val) => { /* period change handler */ });
+
+/* ── Edit Property Modal ── */
+const epmModal     = document.getElementById('editPropModal');
+const epmForm      = document.getElementById('epmForm');
+const epmDeleteConfirm = document.getElementById('epmDeleteConfirm');
+
+window.openEditProp = function(index) {
+  const prop = properties[index];
+  if (!prop) return;
+
+  document.getElementById('epmPropIndex').value = index;
+  document.getElementById('epmTitle').textContent = 'Edit Property';
+  document.getElementById('epmSubtitle').textContent = 'Update your property details';
+  document.getElementById('epmName').value = prop.name || '';
+  document.getElementById('epmCity').value = prop.city || '';
+  document.getElementById('epmCountry').value = prop.country || '';
+  document.getElementById('epmRooms').value = prop.rooms || '';
+
+  const starVal = prop.stars || 5;
+  document.getElementById('epmStarVal').value = starVal;
+  document.querySelectorAll('.star-opt').forEach(s => {
+    s.classList.toggle('selected', parseInt(s.dataset.val) === starVal);
+  });
+
+  // Show form, hide delete confirm
+  epmForm.style.display = 'block';
+  epmDeleteConfirm.classList.remove('active');
+
+  epmModal.classList.add('open');
+};
+
+function closeEditProp() {
+  epmModal.classList.remove('open');
+}
+
+document.getElementById('epmClose')?.addEventListener('click', closeEditProp);
+document.getElementById('epmBackdrop')?.addEventListener('click', closeEditProp);
+document.getElementById('epmCancelBtn')?.addEventListener('click', closeEditProp);
+
+// Star rating
+document.querySelectorAll('.star-opt').forEach(star => {
+  star.addEventListener('click', () => {
+    document.querySelectorAll('.star-opt').forEach(s => s.classList.remove('selected'));
+    star.classList.add('selected');
+    document.getElementById('epmStarVal').value = star.dataset.val;
+  });
+});
+
+// Delete button → show confirm
+document.getElementById('epmDeleteBtn')?.addEventListener('click', () => {
+  epmForm.style.display = 'none';
+  epmDeleteConfirm.classList.add('active');
+});
+
+// Back from confirm
+document.getElementById('epmBackBtn')?.addEventListener('click', () => {
+  epmDeleteConfirm.classList.remove('active');
+  epmForm.style.display = 'block';
+});
+
+// Confirm delete
+document.getElementById('epmConfirmDeleteBtn')?.addEventListener('click', () => {
+  const idx = parseInt(document.getElementById('epmPropIndex').value);
+  if (properties[idx]) {
+    properties.splice(idx, 1);
+    saveProperties(properties);
+    renderProperties();
+    closeEditProp();
+    showToast('Property deleted', 'negative');
+  }
+});
+
+// Form submit — save
+epmForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const idx = parseInt(document.getElementById('epmPropIndex').value);
+  const updated = {
+    name: document.getElementById('epmName').value.trim(),
+    city: document.getElementById('epmCity').value.trim(),
+    country: document.getElementById('epmCountry').value.trim(),
+    stars: parseInt(document.getElementById('epmStarVal').value) || 5,
+    rooms: parseInt(document.getElementById('epmRooms').value) || 1,
+    bookings: properties[idx]?.bookings || 0,
+    revenue: properties[idx]?.revenue || 0,
+    occ: properties[idx]?.occ || 0,
+    status: properties[idx]?.status || 'live'
+  };
+  properties[idx] = updated;
+  saveProperties(properties);
+  renderProperties();
+  closeEditProp();
+  showToast('Property updated successfully');
+});
 
 /* ── Init ── */
 renderRecentBookings();

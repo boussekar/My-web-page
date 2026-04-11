@@ -1964,6 +1964,10 @@ body.light-mode .radio-title {
 .toast.error {
   border-color: #e74c3c;
 }
+.toast.negative {
+  border-color: rgba(231,76,60,0.4);
+  color: #e74c3c;
+}
 
 /* ═══════════ ANIMATIONS ═══════════ */
 @keyframes fadeUp {
