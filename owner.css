@@ -1,5 +1,3 @@
-
-
 :root {
   --gold: #c9a96e;
   --gold-light: #e8d5b0;
@@ -24,7 +22,6 @@
   --font-b: "Jost", sans-serif;
 }
 
-/* Light mode overrides */
 body.light-mode {
   --black: #f0f6f4;
   --dark: #fafcfb;
@@ -2179,6 +2176,21 @@ body.light-mode .star-rating-item:has(.star-radio:checked) {
 }
 body.light-mode .star-rating-item:has(.star-radio:checked) .amenity-icon {
   color: #16a34a;
+}
+
+/* White background overrides for light-mode owner page */
+body.light-mode {
+  background: #ffffff !important;
+}
+body.light-mode .owner-hero-bg {
+  background: #ffffff !important;
+}
+body.light-mode .steps-section {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.06);
+}
+body.light-mode .owner-hero-lines {
+  opacity: 0.01;
 }
 
 /* Responsive: 5-col on desktop, 3-col on tablet, all on mobile */
