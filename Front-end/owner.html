@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AURUM — Partner & Owner Portal</title>
+  <link rel="stylesheet" href="owner.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="dark-mode">
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <!-- ══════════ NAV ══════════ -->
+  <nav id="navbar">
+    <a href="index.html" class="logo">AUR<span>UM</span></a>
+    <div class="nav-center">
+      <span class="nav-badge">Partner Portal</span>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <span id="themeIcon">☀</span>
+      </button>
+      <a href="index.html" class="nav-link-plain">← Back to Main Site</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO BANNER ══════════ -->
+  <section class="owner-hero">
+  <div class="owner-hero-bg" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1578683014511-834f6e1df29e?w=1600&q=80'); background-size: cover; background-position: center;"></div>
+
+    <div class="owner-hero-lines"></div>
+    <div class="owner-hero-content">
+      <div class="hero-tag">AURUM Partner Network</div>
+      <h1 class="owner-hero-title">List Your<br/><em>Property</em></h1>
+      <p class="owner-hero-sub">Join the world's most discerning hotel network.<br/>Reach guests who demand excellence — and pay for it.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">2.4M</div><div class="hero-stat-label">Annual Guests</div></div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat"><div class="hero-stat-num">$890</div><div class="hero-stat-label">Avg Nightly Rate</div></div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat"><div class="hero-stat-num">98%</div><div class="hero-stat-label">Owner Satisfaction</div></div>
+      </div>
+      <button class="btn-gold hero-cta" onclick="document.getElementById('listingForm').scrollIntoView({behavior:'smooth'})">
+        Start Your Listing
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+    <div class="owner-hero-visual">
+      <div class="visual-card vc1">
+        <div class="vc-label">Occupancy Rate</div>
+        <div class="vc-num">94<span>%</span></div>
+        <div class="vc-bar"><div class="vc-bar-fill" style="width:94%"></div></div>
+      </div>
+      <div class="visual-card vc2">
+        <div class="vc-label">This Month's Revenue</div>
+        <div class="vc-num">$<span class="num-count" data-target="84200">0</span></div>
+      </div>
+      <div class="visual-card vc3">
+        <div class="vc-label">New Reviews</div>
+        <div class="vc-stars">★★★★★</div>
+        <div class="vc-reviews">+24 this week</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STEPS ══════════ -->
+  <section class="steps-section">
+    <div class="container">
+      <div class="steps-header">
+        <div class="section-eyebrow">How It Works</div>
+        <h2 class="section-title">From Listing to<br/><em>First Booking in 48h</em></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-title">Complete Your Profile</div>
+          <div class="step-desc">Fill in your hotel details, upload photos, set room types and pricing. Our guided form takes under 20 minutes.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-title">Quality Review</div>
+          <div class="step-desc">Our partnership team reviews your application within 48 hours and schedules a brief quality assurance call.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-title">Go Live</div>
+          <div class="step-desc">Your property is published to AURUM's global audience of luxury travellers with AI-powered matchmaking.</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-title">Manage & Earn</div>
+          <div class="step-desc">Use your owner dashboard to manage bookings, update availability, respond to guests, and track revenue.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ MAIN FORM ══════════ -->
+  <section class="form-section" id="listingForm">
+    <div class="container-wide">
+      <div class="form-layout">
+
+        <!-- ── LEFT: FORM ── -->
+        <div class="form-col">
+
+          <!-- Progress Bar -->
+          <div class="progress-wrap">
+            <div class="progress-steps">
+              <div class="prog-step active" data-step="1"><span>1</span> Property</div>
+              <div class="prog-line"></div>
+              <div class="prog-step" data-step="2"><span>2</span> Rooms</div>
+              <div class="prog-line"></div>
+              <div class="prog-step" data-step="3"><span>3</span> Amenities</div>
+              <div class="prog-line"></div>
+              <div class="prog-step" data-step="4"><span>4</span> Owner</div>
+              <div class="prog-line"></div>
+              <div class="prog-step" data-step="5"><span>5</span> Media</div>
+            </div>
+          </div>
+
+          <!-- STEP 1: Property Info -->
+          <div class="form-step active" id="step-1">
+            <div class="step-heading">
+              <div class="step-heading-num">01</div>
+              <div>
+                <div class="step-heading-title">Property Information</div>
+                <div class="step-heading-sub">Tell us about your hotel</div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Hotel Name <span class="req">*</span></label>
+              <input type="text" class="field-input" id="f-name" placeholder="The Grand Palazzo"/>
+              <div class="field-hint">Use the official name as it appears on your signage.</div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">City <span class="req">*</span></label>
+                <input type="text" class="field-input" id="f-city" placeholder="Venice"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Country <span class="req">*</span></label>
+                <input type="text" class="field-input" id="f-country" placeholder="Italy"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Full Address <span class="req">*</span></label>
+              <input type="text" class="field-input" id="f-address" placeholder="Calle Vallaresso, 1323, San Marco"/>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group" style="grid-column:1/-1">
+                <label class="field-label">Star Rating <span class="req">*</span></label>
+                <div class="amenity-grid star-rating-grid" id="starSelector" role="radiogroup" aria-label="Hotel star rating">
+                  <label class="amenity-item star-rating-item" id="sr-1">
+                    <input type="radio" name="star-rating" value="1" class="star-radio"/>
+                    <div class="amenity-icon">★</div>
+                   
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-2">
+                    <input type="radio" name="star-rating" value="2" class="star-radio"/>
+                    <div class="amenity-icon">★★</div>
+                   
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-3">
+                    <input type="radio" name="star-rating" value="3" class="star-radio"/>
+                    <div class="amenity-icon">★★★</div>
+                    
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-4">
+                    <input type="radio" name="star-rating" value="4" class="star-radio"/>
+                    <div class="amenity-icon">★★★★</div>
+                    
+                  </label>
+                  <label class="amenity-item star-rating-item" id="sr-5">
+                    <input type="radio" name="star-rating" value="5" class="star-radio"/>
+                    
+                    <div class="amenity-icon">★★★★★</div>
+                    
+                  </label>
+                </div>
+                <input type="hidden" id="f-stars" value=""/>
+                <div class="star-note" id="starValueLabel">Select a star rating</div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Property Type</label>
+                <select class="field-input" id="f-type">
+                  <option>Luxury Hotel</option>
+                  <option>Boutique Hotel</option>
+                  <option>Resort</option>
+                  <option>Palace Hotel</option>
+                  <option>Urban Hotel</option>
+                  <option>Eco Retreat</option>
+                  <option>Heritage Property</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Short Description <span class="req">*</span></label>
+              <textarea class="field-input field-textarea" id="f-desc" placeholder="A 16th-century palazzo overlooking the Grand Canal, transformed into a 48-room masterpiece of Venetian luxury…" maxlength="300"></textarea>
+              <div class="char-counter"><span id="descCount">0</span>/300</div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Long Description</label>
+              <textarea class="field-input field-textarea tall" id="f-longdesc" placeholder="Share the full story of your property — its history, architecture, unique experiences, and what makes it truly special for your guests…"></textarea>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Year Established</label>
+                <input type="number" class="field-input" id="f-year" placeholder="1923" min="1800" max="2025"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Total Rooms</label>
+                <input type="number" class="field-input" id="f-totalrooms" placeholder="48" min="1"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Languages Spoken by Staff</label>
+              <div class="tag-input-wrap">
+                <div class="tag-list" id="langTags">
+                  <span class="tag">English <button onclick="removeTag(this)">×</button></span>
+                  <span class="tag">French <button onclick="removeTag(this)">×</button></span>
+                </div>
+                <input type="text" class="tag-input" id="langInput" placeholder="Add language…"/>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <div></div>
+              <button class="btn-gold" onclick="goStep(2)">Next: Room Types <span>→</span></button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Rooms -->
+          <div class="form-step" id="step-2">
+            <div class="step-heading">
+              <div class="step-heading-num">02</div>
+              <div>
+                <div class="step-heading-title">Room Types & Pricing</div>
+                <div class="step-heading-sub">Add all room categories you offer</div>
+              </div>
+            </div>
+
+            <div id="roomsContainer">
+              <!-- Injected by JS -->
+            </div>
+
+            <button class="add-type-btn" id="addRoomTypeBtn">
+              <span>+</span> Add Another Room Type
+            </button>
+
+            <div class="pricing-note">
+              <div class="pricing-note-icon">◈</div>
+              <div>
+                <div class="pricing-note-title">Pricing Guidance</div>
+                <div class="pricing-note-text">AURUM guests expect luxury. Properties with rates below $200/night are less likely to be approved. Our top-performing partners average $650/night.</div>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn-outline" onclick="goStep(1)">← Back</button>
+              <button class="btn-gold" onclick="goStep(3)">Next: Amenities <span>→</span></button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Amenities -->
+          <div class="form-step" id="step-3">
+            <div class="step-heading">
+              <div class="step-heading-num">03</div>
+              <div>
+                <div class="step-heading-title">Amenities & Services</div>
+                <div class="step-heading-sub">Select everything available to guests</div>
+              </div>
+            </div>
+
+            <div class="amenity-section">
+              <div class="amenity-section-title">Wellness & Recreation</div>
+              <div class="amenity-grid">
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="spa"/><div class="amenity-icon">◈</div><div class="amenity-name">Spa & Wellness</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="pool" checked/><div class="amenity-icon">◈</div><div class="amenity-name">Swimming Pool</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="gym"/><div class="amenity-icon">◈</div><div class="amenity-name">Fitness Centre</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="tennis"/><div class="amenity-icon">◈</div><div class="amenity-name">Tennis Court</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="beach"/><div class="amenity-icon">◈</div><div class="amenity-name">Beach Access</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="yoga"/><div class="amenity-icon">◈</div><div class="amenity-name">Yoga Studio</div></label>
+              </div>
+            </div>
+
+            <div class="amenity-section">
+              <div class="amenity-section-title">Dining & Entertainment</div>
+              <div class="amenity-grid">
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="restaurant" checked/><div class="amenity-icon">◈</div><div class="amenity-name">Restaurant</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="bar" checked/><div class="amenity-icon">◈</div><div class="amenity-name">Bar & Lounge</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="rooftop"/><div class="amenity-icon">◈</div><div class="amenity-name">Rooftop Bar</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="michelin"/><div class="amenity-icon">◈</div><div class="amenity-name">Michelin Restaurant</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="roomservice"/><div class="amenity-icon">◈</div><div class="amenity-name">24h Room Service</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="breakfast"/><div class="amenity-icon">◈</div><div class="amenity-name">Breakfast Included</div></label>
+              </div>
+            </div>
+
+            <div class="amenity-section">
+              <div class="amenity-section-title">Services & Facilities</div>
+              <div class="amenity-grid">
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="concierge" checked/><div class="amenity-icon">◈</div><div class="amenity-name">24h Concierge</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="wifi" checked/><div class="amenity-icon">◈</div><div class="amenity-name">High-Speed Wi-Fi</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="transfer"/><div class="amenity-icon">◈</div><div class="amenity-name">Airport Transfer</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="valet"/><div class="amenity-icon">◈</div><div class="amenity-name">Valet Parking</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="butler"/><div class="amenity-icon">◈</div><div class="amenity-name">Butler Service</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="laundry"/><div class="amenity-icon">◈</div><div class="amenity-name">Laundry Service</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="business"/><div class="amenity-icon">◈</div><div class="amenity-name">Business Centre</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="events"/><div class="amenity-icon">◈</div><div class="amenity-name">Event Spaces</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="childcare"/><div class="amenity-icon">◈</div><div class="amenity-name">Childcare</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="pets"/><div class="amenity-icon">◈</div><div class="amenity-name">Pet Friendly</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="accessible"/><div class="amenity-icon">◈</div><div class="amenity-name">Accessibility</div></label>
+                <label class="amenity-item"><input type="checkbox" name="amenity" value="eco"/><div class="amenity-icon">◈</div><div class="amenity-name">Eco Certified</div></label>
+              </div>
+            </div>
+
+            <div class="field-group" style="margin-top:32px;">
+              <label class="field-label">Cancellation Policy</label>
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="cancel" value="flexible" checked/> <div><div class="radio-title">Flexible</div><div class="radio-desc">Full refund up to 48h before check-in</div></div></label>
+                <label class="radio-item"><input type="radio" name="cancel" value="moderate"/> <div><div class="radio-title">Moderate</div><div class="radio-desc">Full refund up to 7 days before check-in</div></div></label>
+                <label class="radio-item"><input type="radio" name="cancel" value="strict"/> <div><div class="radio-title">Strict</div><div class="radio-desc">50% refund up to 30 days before check-in</div></div></label>
+              </div>
+            </div>
+
+            <div class="field-row" style="margin-top:24px;">
+              <div class="field-group">
+                <label class="field-label">Check-in Time</label>
+                <input type="time" class="field-input" id="f-checkin" value="15:00"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Check-out Time</label>
+                <input type="time" class="field-input" id="f-checkout" value="12:00"/>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn-outline" onclick="goStep(2)">← Back</button>
+              <button class="btn-gold" onclick="goStep(4)">Next: Owner Details <span>→</span></button>
+            </div>
+          </div>
+
+          <!-- STEP 4: Owner Details -->
+          <div class="form-step" id="step-4">
+            <div class="step-heading">
+              <div class="step-heading-num">04</div>
+              <div>
+                <div class="step-heading-title">Owner & Contact Details</div>
+                <div class="step-heading-sub">Legal and business information</div>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Owner / Manager Full Name <span class="req">*</span></label>
+                <input type="text" class="field-input" id="f-ownername" placeholder="Sofia Marchetti"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Job Title</label>
+                <input type="text" class="field-input" id="f-jobtitle" placeholder="General Manager"/>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">Business Email <span class="req">*</span></label>
+                <input type="email" class="field-input" id="f-email" placeholder="sofia@grandpalazzo.com"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Phone Number <span class="req">*</span></label>
+                <input type="tel" class="field-input" id="f-phone" placeholder="+39 041 000 0000"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Company / Legal Entity Name</label>
+              <input type="text" class="field-input" id="f-company" placeholder="Grand Palazzo S.r.l."/>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label">VAT / Tax Number</label>
+                <input type="text" class="field-input" id="f-vat" placeholder="IT12345678901"/>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Hotel Website</label>
+                <input type="url" class="field-input" id="f-website" placeholder="https://grandpalazzo.com"/>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Commission Structure Preference</label>
+              <div class="commission-cards" id="commissionCards">
+                <div class="comm-card active" data-val="12">
+                  <div class="comm-pct">12%</div>
+                  <div class="comm-name">Standard</div>
+                  <div class="comm-desc">Full AURUM marketing suite, AI placement</div>
+                </div>
+                <div class="comm-card" data-val="16">
+                  <div class="comm-pct">16%</div>
+                  <div class="comm-name">Premium</div>
+                  <div class="comm-desc">Priority ranking, dedicated account manager</div>
+                </div>
+                <div class="comm-card" data-val="20">
+                  <div class="comm-pct">20%</div>
+                  <div class="comm-name">Elite</div>
+                  <div class="comm-desc">Featured placement, editorial coverage, concierge referrals</div>
+                </div>
+              </div>
+              <input type="hidden" id="f-commission" value="12"/>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">How did you hear about AURUM?</label>
+              <select class="field-input" id="f-source">
+                <option>Select…</option>
+                <option>Word of mouth / referral</option>
+                <option>Industry conference</option>
+                <option>Online search</option>
+                <option>Social media</option>
+                <option>Press / media article</option>
+                <option>AURUM representative contacted me</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Additional Notes</label>
+              <textarea class="field-input field-textarea" id="f-notes" placeholder="Anything else you'd like us to know before the review call…"></textarea>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn-outline" onclick="goStep(3)">← Back</button>
+              <button class="btn-gold" onclick="goStep(5)">Next: Photos <span>→</span></button>
+            </div>
+          </div>
+
+          <!-- STEP 5: Media Upload -->
+          <div class="form-step" id="step-5">
+            <div class="step-heading">
+              <div class="step-heading-num">05</div>
+              <div>
+                <div class="step-heading-title">Photos & Media</div>
+                <div class="step-heading-sub">High-quality images increase bookings by 300%</div>
+              </div>
+            </div>
+
+            <div class="upload-zone" id="uploadZone">
+              <div class="upload-icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--gold)">
+                  <rect x="1" y="1" width="46" height="46" rx="1" stroke="currentColor" stroke-width="1"/>
+                  <path d="M24 32V16M16 24l8-8 8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="upload-title">Drop your photos here</div>
+              <div class="upload-sub">JPG, PNG · Up to 20 images · Max 10MB each</div>
+              <button class="btn-outline" onclick="document.getElementById('fileInput').click()">Browse Files</button>
+              <input type="file" id="fileInput" webkitdirectory multiple accept="image/*" style="display:none"/>
+            </div>
+
+            <div class="photo-grid" id="photoGrid"></div>
+
+            <div class="photo-tips">
+              <div class="photo-tips-title">✦ Photo Guidelines</div>
+              <ul class="photo-tips-list">
+                <li>Minimum 8 photos required for listing approval</li>
+                <li>Include: exterior, lobby, rooms, dining, spa, pool</li>
+                <li>Minimum resolution: 1920×1080px</li>
+                <li>Professional photography strongly recommended</li>
+                <li>No watermarks, logos or text overlays</li>
+              </ul>
+            </div>
+
+            <div class="field-group" style="margin-top:32px;">
+              <label class="field-label">Virtual Tour URL (optional)</label>
+              <input type="url" class="field-input" id="f-tour" placeholder="https://my.matterport.com/show/?m=…"/>
+            </div>
+
+            <!-- AGREEMENT -->
+            <div class="agreement-box">
+              <label class="agreement-check">
+                <input type="checkbox" id="agreeTerms"/>
+                <span>I confirm all information provided is accurate and I agree to AURUM's <a href="#">Partner Terms & Conditions</a> and <a href="#">Commission Agreement</a>.</span>
+              </label>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn-outline" onclick="goStep(4)">← Back</button>
+              <button class="btn-gold submit-final" id="finalSubmitBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Submit for Review
+              </button>
+            </div>
+          </div>
+
+        </div><!-- end form-col -->
+
+        <!-- ── RIGHT: LIVE PREVIEW ── -->
+        <div class="preview-col" id="previewCol">
+          <div class="preview-sticky">
+
+            <div class="preview-header">
+              <div class="preview-tag">Live Preview</div>
+              <div class="preview-updating" id="previewUpdating">● Updating…</div>
+            </div>
+
+            <!-- Preview Card -->
+            <div class="preview-hotel-card">
+              <div class="preview-card-img" id="prevImg">
+                <div class="preview-img-placeholder" id="prevImgPlaceholder">
+                  <span id="prevInitials">—</span>
+                </div>
+                <div class="preview-card-badge" id="prevBadge">5 ★</div>
+                <div class="preview-card-type" id="prevType">Luxury Hotel</div>
+              </div>
+              <div class="preview-card-body">
+                <div class="preview-card-name" id="prevName">Your Hotel Name</div>
+                <div class="preview-card-location" id="prevLocation">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  City, Country
+                </div>
+                <div class="preview-card-desc" id="prevDesc">Your hotel description will appear here as you type…</div>
+                <div class="preview-amenities" id="prevAmenities">
+                  <span class="pa-tag">Pool</span>
+                  <span class="pa-tag">Restaurant</span>
+                  <span class="pa-tag">Concierge</span>
+                  <span class="pa-tag">Wi-Fi</span>
+                </div>
+                <div class="preview-card-footer">
+                  <div class="preview-price">
+                    <div class="pp-from">from</div>
+                    <div class="pp-num" id="prevPrice">$—</div>
+                    <div class="pp-per">/night</div>
+                  </div>
+                  <div class="preview-stars" id="prevStars">★★★★★</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Completeness Score -->
+            <div class="completeness-box">
+              <div class="comp-header">
+                <div class="comp-title">Profile Completeness</div>
+                <div class="comp-pct" id="compPct">0%</div>
+              </div>
+              <div class="comp-bar-track">
+                <div class="comp-bar-fill" id="compBar" style="width:0%"></div>
+              </div>
+              <div class="comp-items" id="compItems">
+                <div class="comp-item pending" id="ci-name">Hotel Name</div>
+                <div class="comp-item pending" id="ci-location">Location</div>
+                <div class="comp-item pending" id="ci-desc">Description</div>
+                <div class="comp-item pending" id="ci-rooms">Room Types</div>
+                <div class="comp-item pending" id="ci-owner">Owner Details</div>
+                <div class="comp-item pending" id="ci-photos">Photos</div>
+              </div>
+            </div>
+
+            <!-- Owner Info Preview -->
+            <div class="owner-preview-box" id="ownerPreviewBox">
+              <div class="opb-label">Listing Manager</div>
+              <div class="opb-name" id="opbName">—</div>
+              <div class="opb-email" id="opbEmail">—</div>
+              <div class="opb-commission">
+                Commission: <strong id="opbComm">12%</strong> Standard Plan
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- end form-layout -->
+    </div>
+  </section>
+
+  <!-- ══════════ SUCCESS SCREEN ══════════ -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-box">
+      <div class="success-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--gold)">
+          <circle cx="40" cy="40" r="39" stroke="currentColor" stroke-width="1"/>
+          <path d="M24 40l12 12 20-24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="success-eyebrow">Application Submitted</div>
+      <h2 class="success-title">Welcome to<br/><em>AURUM</em></h2>
+      <p class="success-desc">Your listing for <strong id="successHotelName">—</strong> has been received. Our partnership team will review your application and contact you within 48 hours.</p>
+      <div class="success-ref">
+        Reference: <span id="successRef">AUR-XXXXXX</span>
+      </div>
+      <div class="success-next">
+        <div class="sn-item"><span>1</span> Check your email for a confirmation receipt</div>
+        <div class="sn-item"><span>2</span> Our team reviews your listing (24-48h)</div>
+        <div class="sn-item"><span>3</span> Quality call scheduled with partnership manager</div>
+        <div class="sn-item"><span>4</span> Go live on AURUM</div>
+      </div>
+      <a href="index.html" class="btn-gold" style="display:inline-flex;align-items:center;gap:10px;margin-top:8px;">
+        Return to AURUM
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Owner-only access protection -->
+  <script>
+    (function() {
+      const user = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+      if (!user || user.role !== 'owner') {
+        // Redirect guests to auth page
+        window.location.href = 'auth.html';
+      }
+    })();
+  </script>
+
+  <script src="owner.js"></script>
+</body>
+</html>

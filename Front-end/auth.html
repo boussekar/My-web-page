@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AURUM — Sign In</title>
+  <link rel="stylesheet" href="auth.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="dark-mode">
+
+<!-- Background Effects -->
+<div class="auth-bg">
+  <div class="auth-bg-orb auth-bg-orb-1"></div>
+  <div class="auth-bg-orb auth-bg-orb-2"></div>
+  <div class="auth-bg-orb auth-bg-orb-3"></div>
+  <div class="auth-bg-orb auth-bg-orb-4"></div>
+  <div class="auth-bg-grid"></div>
+  <div class="auth-particles">
+    <div class="auth-particle p1"></div>
+    <div class="auth-particle p2"></div>
+    <div class="auth-particle p3"></div>
+    <div class="auth-particle p4"></div>
+    <div class="auth-particle p5"></div>
+    <div class="auth-particle p6"></div>
+    <div class="auth-particle p7"></div>
+    <div class="auth-particle p8"></div>
+    <div class="auth-particle p9"></div>
+    <div class="auth-particle p10"></div>
+    <div class="auth-particle p11"></div>
+    <div class="auth-particle p12"></div>
+    <div class="auth-particle p13"></div>
+    <div class="auth-particle p14"></div>
+    <div class="auth-particle p15"></div>
+    <div class="auth-particle p16"></div>
+    <div class="auth-particle p17"></div>
+    <div class="auth-particle p18"></div>
+    <div class="auth-particle p19"></div>
+    <div class="auth-particle p20"></div>
+  </div>
+  <div class="auth-lines">
+    <div class="auth-line auth-line-1"></div>
+    <div class="auth-line auth-line-2"></div>
+    <div class="auth-line auth-line-3"></div>
+    <div class="auth-line auth-line-4"></div>
+    <div class="auth-line auth-line-5"></div>
+    <div class="auth-line auth-line-6"></div>
+    <div class="auth-line auth-line-7"></div>
+    <div class="auth-line auth-line-8"></div>
+    <div class="auth-line auth-line-9"></div>
+    <div class="auth-line auth-line-10"></div>
+  </div>
+</div>
+
+<div class="auth-center-wrapper">
+  <!-- Theme Toggle -->
+  <button class="theme-toggle-btn" id="themeToggle" title="Toggle theme">
+    <span id="themeIcon">☀</span>
+  </button>
+
+  <!-- Logo -->
+  <a href="index.html" class="auth-logo animate-logo">AUR<span>UM</span></a>
+
+  <!-- Auth Card -->
+  <div class="auth-card animate-card">
+    <!-- Corner Accents -->
+    <div class="corner-dot top-left"></div>
+    <div class="corner-dot top-right"></div>
+    <div class="corner-dot bottom-right"></div>
+    <div class="corner-dot bottom-left"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+
+    <!-- Role Switcher -->
+    <div class="role-switcher animate-role-switcher">
+      <button class="role-btn active" id="roleGuest">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="role-btn-text">Guest</span>
+      </button>
+      <button class="role-btn" id="roleOwner">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+        <span class="role-btn-text">Hotel Owner</span>
+      </button>
+    </div>
+
+    <!-- GUEST SECTION -->
+    <div id="guestSection">
+      <div class="auth-tabs animate-tabs">
+        <button class="auth-tab active" id="tabLogin">
+          <span class="tab-text">Sign In</span>
+        </button>
+        <button class="auth-tab" id="tabRegister">
+          <span class="tab-text">Create Account</span>
+        </button>
+      </div>
+
+      <!-- Guest Login -->
+      <div class="auth-form-wrap" id="loginWrap">
+        <div class="auth-form-title">
+          <span class="title-line">Welcome</span>
+          <span class="title-line italic"><em>Back</em></span>
+        </div>
+        <p class="auth-form-sub">Sign in to continue your journey.</p>
+
+        <div class="field-g animate-field" style="--field-delay:0">
+          <label class="field-l">Email</label>
+          <div class="field-icon-wrap">
+            <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" class="field-i" id="loginEmail" placeholder="you@example.com"/>
+          </div>
+          <div class="field-error" id="loginEmailErr"></div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:1">
+          <label class="field-l">Password</label>
+          <div class="field-icon-wrap">
+            <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+            <input type="password" class="field-i" id="loginPass" placeholder="••••••••"/>
+            <button class="pw-toggle" type="button" onclick="togglePw('loginPass',this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error" id="loginPassErr"></div>
+        </div>
+
+        <div class="auth-options animate-field" style="--field-delay:2">
+          <label class="remember-me">
+            <input type="checkbox" class="custom-checkbox"/>
+            <span class="checkbox-custom"></span>
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot?</a>
+        </div>
+
+        <button class="btn-auth animate-btn-auth" id="loginBtn" style="--field-delay:3">
+          <span class="btn-auth-text">Sign In</span>
+          <span class="btn-auth-arrow">→</span>
+        </button>
+
+        <div class="auth-divider animate-field" style="--field-delay:4">
+          <span>or</span>
+        </div>
+
+        <div class="social-btns animate-field" style="--field-delay:5">
+          <button class="social-btn" onclick="socialLogin('Google')">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Google
+          </button>
+          <button class="social-btn" onclick="socialLogin('Apple')">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            Apple
+          </button>
+        </div>
+
+        <p class="switch-link animate-field" style="--field-delay:6">
+          No account? <a href="#" id="goRegisterLink">Create one →</a>
+        </p>
+      </div>
+
+      <!-- Guest Register -->
+      <div class="auth-form-wrap hidden" id="registerWrap">
+        <div class="auth-form-title">
+          <span class="title-line">Join</span>
+          <span class="title-line italic"><em>AURUM</em></span>
+        </div>
+        <p class="auth-form-sub">Create your account to unlock exclusive rates.</p>
+
+        <div class="field-row-2 animate-field" style="--field-delay:0">
+          <div class="field-g">
+            <label class="field-l">First Name</label>
+            <input type="text" class="field-i" id="regFirst" placeholder="Alexandre"/>
+            <div class="field-error" id="regFirstErr"></div>
+          </div>
+          <div class="field-g">
+            <label class="field-l">Last Name</label>
+            <input type="text" class="field-i" id="regLast" placeholder="Fontaine"/>
+            <div class="field-error" id="regLastErr"></div>
+          </div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:1">
+          <label class="field-l">Email</label>
+          <input type="email" class="field-i" id="regEmail" placeholder="you@example.com"/>
+          <div class="field-error" id="regEmailErr"></div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:2">
+          <label class="field-l">Password</label>
+          <div class="field-icon-wrap">
+            <input type="password" class="field-i" id="regPass" placeholder="Min 8 characters" oninput="checkStrength(this.value)"/>
+            <button class="pw-toggle" type="button" onclick="togglePw('regPass',this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+          <div class="strength-label" id="strengthLabel"></div>
+          <div class="field-error" id="regPassErr"></div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:3">
+          <label class="field-l">Confirm Password</label>
+          <div class="field-icon-wrap">
+            <input type="password" class="field-i" id="regPass2" placeholder="Repeat password"/>
+            <button class="pw-toggle" type="button" onclick="togglePw('regPass2',this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error" id="regPass2Err"></div>
+        </div>
+
+        <label class="agree-check animate-field" style="--field-delay:4">
+          <input type="checkbox" id="agreeTerms" class="custom-checkbox"/>
+          <span class="checkbox-custom"></span>
+          <span>I agree to <a href="#">Terms</a></span>
+        </label>
+        <div class="field-error" id="agreeErr"></div>
+
+        <button class="btn-auth animate-btn-auth" id="registerBtn" style="--field-delay:5">
+          <span class="btn-auth-text">Create Account</span>
+          <span class="btn-auth-arrow">→</span>
+        </button>
+
+        <p class="switch-link animate-field" style="--field-delay:6">
+          Already have an account? <a href="#" id="goLoginLink">Sign in →</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- OWNER SECTION -->
+    <div id="ownerSection" class="hidden">
+      <div class="owner-auth-badge animate-owner-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Hotel Owner
+      </div>
+
+      <div class="auth-tabs animate-tabs">
+        <button class="auth-tab active" id="ownerTabLogin">
+          <span class="tab-text">Owner Sign In</span>
+        </button>
+        <button class="auth-tab" id="ownerTabRegister">
+          <span class="tab-text">Register</span>
+        </button>
+      </div>
+
+      <!-- Owner Login -->
+      <div class="auth-form-wrap" id="ownerLoginWrap">
+        <div class="auth-form-title">
+          <span class="title-line">Owner</span>
+          <span class="title-line italic"><em>Dashboard</em></span>
+        </div>
+        <p class="auth-form-sub">Manage your properties and bookings.</p>
+
+        <div class="field-g animate-field" style="--field-delay:0">
+          <label class="field-l">Business Email</label>
+          <div class="field-icon-wrap">
+            <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" class="field-i" id="ownerLoginEmail" placeholder="hotel@example.com"/>
+          </div>
+          <div class="field-error" id="ownerLoginEmailErr"></div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:1">
+          <label class="field-l">Password</label>
+          <div class="field-icon-wrap">
+            <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+            <input type="password" class="field-i" id="ownerLoginPass" placeholder="••••••••"/>
+            <button class="pw-toggle" type="button" onclick="togglePw('ownerLoginPass',this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error" id="ownerLoginPassErr"></div>
+        </div>
+
+        <button class="btn-auth owner-btn animate-btn-auth" id="ownerLoginBtn" style="--field-delay:2">
+          <span class="btn-auth-text">Access Dashboard</span>
+          <span class="btn-auth-arrow">→</span>
+        </button>
+
+        <p class="switch-link animate-field" style="--field-delay:3">
+          New partner? <a href="#" id="goOwnerRegisterLink">Register →</a>
+        </p>
+      </div>
+
+      <!-- Owner Register -->
+      <div class="auth-form-wrap hidden" id="ownerRegisterWrap">
+        <div class="auth-form-title">
+          <span class="title-line">Partner</span>
+          <span class="title-line italic"><em>Registration</em></span>
+        </div>
+        <p class="auth-form-sub">List and manage your properties.</p>
+
+        <div class="field-row-2 animate-field" style="--field-delay:0">
+          <div class="field-g">
+            <label class="field-l">First Name</label>
+            <input type="text" class="field-i" id="ownerFirst" placeholder="Sofia"/>
+            <div class="field-error" id="ownerFirstErr"></div>
+          </div>
+          <div class="field-g">
+            <label class="field-l">Last Name</label>
+            <input type="text" class="field-i" id="ownerLast" placeholder="Marchetti"/>
+            <div class="field-error" id="ownerLastErr"></div>
+          </div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:1">
+          <label class="field-l">Hotel Name</label>
+          <input type="text" class="field-i" id="ownerHotel" placeholder="The Grand Palazzo"/>
+          <div class="field-error" id="ownerHotelErr"></div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:2">
+          <label class="field-l">Email</label>
+          <input type="email" class="field-i" id="ownerEmail" placeholder="sofia@hotel.com"/>
+          <div class="field-error" id="ownerEmailErr"></div>
+        </div>
+
+        <div class="field-g animate-field" style="--field-delay:3">
+          <label class="field-l">Password</label>
+          <div class="field-icon-wrap">
+            <input type="password" class="field-i" id="ownerPass" placeholder="Min 8 characters" oninput="checkOwnerStrength(this.value)"/>
+            <button class="pw-toggle" type="button" onclick="togglePw('ownerPass',this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="strength-bar"><div class="strength-fill" id="ownerStrFill"></div></div>
+          <div class="strength-label" id="ownerStrLabel"></div>
+          <div class="field-error" id="ownerPassErr"></div>
+        </div>
+
+        <label class="agree-check animate-field" style="--field-delay:4">
+          <input type="checkbox" id="ownerAgreeTerms" class="custom-checkbox"/>
+          <span class="checkbox-custom"></span>
+          <span>I agree to <a href="#">Partner Terms</a></span>
+        </label>
+        <div class="field-error" id="ownerAgreeErr"></div>
+
+        <button class="btn-auth owner-btn animate-btn-auth" id="ownerRegisterBtn" style="--field-delay:5">
+          <span class="btn-auth-text">Create Owner Account</span>
+          <span class="btn-auth-arrow">→</span>
+        </button>
+
+        <p class="switch-link animate-field" style="--field-delay:6">
+          Already registered? <a href="#" id="goOwnerLoginLink">Sign in →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Link -->
+  <a href="index.html" class="auth-back animate-back">← Back to Discover</a>
+</div>
+
+<!-- Success Overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-content">
+    <div class="success-checkmark">
+      <svg viewBox="0 0 50 50" width="50" height="50">
+        <circle cx="25" cy="25" r="23" fill="none" stroke="currentColor" stroke-width="2" class="checkmark-circle"/>
+        <path d="M14 27l7 7 15-15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="checkmark-check"/>
+      </svg>
+    </div>
+    <div class="success-text" id="successText">Welcome back!</div>
+    <div class="success-subtext" id="successSubtext">Redirecting...</div>
+  </div>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>

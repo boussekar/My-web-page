@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AURUM — Owner Dashboard</title>
+  <link rel="stylesheet" href="owner.css"/>
+  <link rel="stylesheet" href="owner-dashboard.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="dark-mode">
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="logo">AUR<span>UM</span></a>
+  <div class="nav-center">
+    <span class="nav-badge">Owner Dashboard</span>
+  </div>
+  <div class="nav-right" style="display:flex;align-items:center;gap:16px;position:relative;z-index:1;">
+    <button class="theme-toggle" id="themeToggle"><span id="themeIcon">☀</span></button>
+    <div class="nav-owner-info" id="navOwnerInfo">
+      <div class="nav-avatar-sm" id="navOwnerInitials">OW</div>
+      <span id="navOwnerName">Owner</span>
+    </div>
+    <button class="btn-signout" id="dashSignout">Sign Out</button>
+    <a href="index.html" class="nav-link-plain">← Main Site</a>
+    <button class="btn-nav-hide" id="navHideBtn" title="Hide navigation" style="margin-left: 20px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- DASHBOARD LAYOUT -->
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="dash-sidebar">
+    <div class="sidebar-owner">
+      <div class="so-avatar" id="sideOwnerInitials">OW</div>
+      <div class="so-name" id="sideOwnerName">Owner Name</div>
+      <div class="so-hotel" id="sideOwnerHotel">Hotel Name</div>
+      <div class="so-badge">Verified Partner</div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="snav-btn active" data-tab="overview">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Overview
+      </button>
+      <button class="snav-btn" data-tab="analytics">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21H3V3"/><path d="M21 9l-6 6-4-4-6 6"/></svg>
+        AI Analytics
+      </button>
+      <button class="snav-btn" data-tab="properties">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        My Properties
+      </button>
+      <button class="snav-btn" data-tab="bookings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Bookings
+      </button>
+      <button class="snav-btn" data-tab="rooms">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        Room Status
+      </button>
+      <button class="snav-btn" data-tab="revenue">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Revenue
+      </button>
+      <button class="snav-btn" data-tab="guests">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Guests
+      </button>
+      <button class="snav-btn" data-tab="housekeeping">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Housekeeping
+      </button>
+      <button class="snav-btn" data-tab="list">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        List New Property
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dash-main">
+
+    <!-- TAB: OVERVIEW -->
+    <div class="dash-tab active" id="tab-overview">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Dashboard</div>
+          <h1 class="dash-title">Good morning, <em id="ownerGreetName">Partner</em></h1>
+          <p class="dash-sub">Here's an overview of your portfolio performance today, <span id="dashDate"></span></p>
+        </div>
+        <div class="dash-header-actions">
+          <div class="live-indicator">
+            <span class="live-dot"></span>
+            <span class="live-text"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Monthly Revenue</div>
+            <div class="kpi-value" id="kpiRevenue">$84,200</div>
+            <div class="kpi-delta positive">+12.4% vs last month</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Total Bookings</div>
+            <div class="kpi-value" id="kpiBookings">148</div>
+            <div class="kpi-delta positive">+8 this week</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Properties Listed</div>
+            <div class="kpi-value" id="kpiProperties">2</div>
+            <div class="kpi-delta neutral">Active</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Avg Guest Rating</div>
+            <div class="kpi-value" id="kpiRating">4.87</div>
+            <div class="kpi-delta positive">★★★★★ Excellent</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Insights Banner -->
+      <div class="ai-insights-banner">
+        <div class="aib-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="aib-content">
+          <div class="aib-label">AI Insight</div>
+          <div class="aib-text" id="aiInsightText">Your occupancy is trending 12% above last month's average. Consider adjusting pricing for next week — demand is projected to rise by 18% in your region.</div>
+        </div>
+        <div class="aib-metric">
+          <div class="aib-metric-val">+12%</div>
+          <div class="aib-metric-lbl">vs avg</div>
+        </div>
+      </div>
+
+      <!-- Occupancy + Guest Activity -->
+      <div class="dash-grid-2">
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Occupancy Rate</div>
+            <div class="dc-period">This Month</div>
+          </div>
+          <div class="occ-visual">
+            <div class="occ-ring">
+              <svg viewBox="0 0 120 120" width="120" height="120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border-soft)" stroke-width="10"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" stroke-width="10"
+                  stroke-dasharray="314" stroke-dashoffset="52" stroke-linecap="round"
+                  transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.5s ease;"/>
+              </svg>
+              <div class="occ-ring-label">83%</div>
+            </div>
+            <div class="occ-breakdown">
+              <div class="occ-item">
+                <div class="occ-dot green"></div>
+                <span>Occupied</span>
+                <strong>45 rooms</strong>
+              </div>
+              <div class="occ-item">
+                <div class="occ-dot teal"></div>
+                <span>Available</span>
+                <strong>9 rooms</strong>
+              </div>
+              <div class="occ-item">
+                <div class="occ-dot yellow"></div>
+                <span>Maintenance</span>
+                <strong>2 rooms</strong>
+              </div>
+            </div>
+          </div>
+          <div class="occ-heatmap">
+            <div class="occ-heatmap-label">Floor Occupancy Heatmap</div>
+            <div class="occ-heatmap-bars" id="occHeatmapBars"></div>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Guest Activity</div>
+            <button class="dc-link" onclick="switchDashTab('guests')">All guests →</button>
+          </div>
+          <div class="guest-activity-list" id="guestActivityList"></div>
+          <div class="arrivals-departures">
+            <div class="ad-block">
+              <div class="ad-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 11 12 6 7 11"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
+                Arrivals Today
+              </div>
+              <div class="ad-count" id="arrivalsCount">6</div>
+            </div>
+            <div class="ad-sep"></div>
+            <div class="ad-block">
+              <div class="ad-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="7 13 12 18 17 13"/><line x1="12" y1="18" x2="12" y2="6"/></svg>
+                Departures Today
+              </div>
+              <div class="ad-count" id="departuresCount">4</div>
+            </div>
+            <div class="ad-sep"></div>
+            <div class="ad-block">
+              <div class="ad-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                In-House
+              </div>
+              <div class="ad-count" id="inHouseCount">41</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue + Booking Pace -->
+      <div class="dash-grid-2" style="margin-top:20px;">
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Revenue Trend</div>
+            <div class="dc-period">Last 6 months</div>
+          </div>
+          <div class="rev-chart-area">
+            <div class="rev-bars" id="revBars"></div>
+            <div class="rev-labels" id="revLabels"></div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Booking Pace</div>
+            <div class="dc-period">Next 30 days</div>
+          </div>
+          <div class="pace-chart" id="paceChart">
+            <div class="pace-weeks" id="paceWeeks"></div>
+          </div>
+          <div class="pace-stats">
+            <div class="ps-item">
+              <div class="ps-val">24</div>
+              <div class="ps-lbl">Rooms Booked</div>
+            </div>
+            <div class="ps-item">
+              <div class="ps-val">31</div>
+              <div class="ps-lbl">Available</div>
+            </div>
+            <div class="ps-item">
+              <div class="ps-val ps-val-warn">44%</div>
+              <div class="ps-lbl">Fill Rate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Bookings -->
+      <div class="dash-card" style="margin-top:20px;">
+        <div class="dc-header">
+          <div class="dc-title">Recent Bookings</div>
+          <button class="dc-link" onclick="switchDashTab('bookings')">View all →</button>
+        </div>
+        <div class="booking-list" id="recentBookingsList"></div>
+      </div>
+
+      <!-- Sentiment & Reviews -->
+      <div class="dash-grid-2" style="margin-top:20px;">
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Guest Sentiment</div>
+            <div class="dc-period">Last 30 days</div>
+          </div>
+          <div class="sentiment-overview" id="sentimentOverview"></div>
+          <div class="sentiment-bars" id="sentimentBars"></div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Dynamic Pricing</div>
+            <div class="dc-period ai-badge">AI Recommended</div>
+          </div>
+          <div class="pricing-recommendations" id="pricingRecommendations"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: AI ANALYTICS -->
+    <div class="dash-tab" id="tab-analytics">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Intelligence</div>
+          <h1 class="dash-title">AI <em>Analytics</em></h1>
+          <p class="dash-sub">Real-time insights and predictions powered by machine learning.</p>
+        </div>
+        <div class="filter-row">
+          <div class="dash-custom-select" id="analyticsPeriodWrap">
+            <div class="dash-select-trigger">
+              <span class="dash-select-value">This Month</span>
+              <svg class="dash-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="dash-select-dropdown">
+              <div class="dash-select-option selected" data-value="month">This Month</div>
+              <div class="dash-select-option" data-value="quarter">This Quarter</div>
+              <div class="dash-select-option" data-value="year">This Year</div>
+              <div class="dash-select-option" data-value="all">All Time</div>
+            </div>
+          </div>
+          <select class="dash-select-hidden" id="analyticsPeriod" style="display:none">
+            <option value="month">This Month</option>
+            <option value="quarter">This Quarter</option>
+            <option value="year">This Year</option>
+            <option value="all">All Time</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- AI Score Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Predictive Score</div>
+            <div class="kpi-value">91<span style="font-size:18px;color:var(--text-muted);">/100</span></div>
+            <div class="kpi-delta positive">Excellent — trending up</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Avg Lead Time</div>
+            <div class="kpi-value">14<span style="font-size:18px;color:var(--text-muted);"> days</span></div>
+            <div class="kpi-delta neutral">Down from 18 last mo.</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Repeat Guest Rate</div>
+            <div class="kpi-value">34%</div>
+            <div class="kpi-delta positive">↑ 6% vs last month</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon kpi-gold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-label">Response Rate</div>
+            <div class="kpi-value">98.2%</div>
+            <div class="kpi-delta positive">Within 2 hrs avg.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Charts Row -->
+      <div class="dash-grid-2" style="margin-top:20px;">
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Revenue Forecast</div>
+            <div class="dc-period ai-badge">AI Prediction</div>
+          </div>
+          <div class="forecast-chart" id="forecastChart">
+            <div class="forecast-bars" id="forecastBars"></div>
+            <div class="forecast-labels" id="forecastLabels"></div>
+          </div>
+          <div class="forecast-insight" id="forecastInsight">AI projects <strong>$98,400</strong> next month — a <strong style="color:#3fb891;">+16.9%</strong> increase based on booking velocity and regional demand data.</div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-header">
+            <div class="dc-title">Demand Forecast</div>
+            <div class="dc-period">Next 7 days</div>
+          </div>
+          <div class="demand-chart" id="demandChart"></div>
+          <div class="demand-legend">
+            <span class="dl-item"><span class="dl-dot gold"></span> High demand</span>
+            <span class="dl-item"><span class="dl-dot yellow"></span> Moderate</span>
+            <span class="dl-item"><span class="dl-dot teal"></span> Low</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Recommendations -->
+      <div class="dash-card" style="margin-top:20px;">
+        <div class="dc-header">
+          <div class="dc-title">AI Recommendations</div>
+          <div class="dc-period">Based on your data</div>
+        </div>
+        <div class="ai-recommendations" id="aiRecommendations"></div>
+      </div>
+
+      <!-- Competitive Benchmark -->
+      <div class="dash-card" style="margin-top:20px;">
+        <div class="dc-header">
+          <div class="dc-title">Market Benchmark</div>
+          <div class="dc-period">vs. similar properties</div>
+        </div>
+        <div class="benchmark-grid" id="benchmarkGrid"></div>
+      </div>
+    </div>
+
+    <!-- TAB: PROPERTIES -->
+    <div class="dash-tab" id="tab-properties">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Portfolio</div>
+          <h1 class="dash-title">My <em>Properties</em></h1>
+          <p class="dash-sub">Manage and monitor all your listed properties.</p>
+        </div>
+      </div>
+      <div class="properties-grid" id="propertiesGrid"></div>
+    </div>
+
+    <!-- TAB: BOOKINGS -->
+    <div class="dash-tab" id="tab-bookings">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Reservations</div>
+          <h1 class="dash-title">All <em>Bookings</em></h1>
+        </div>
+        <div class="filter-row">
+          <div class="dash-custom-select" id="bookingFilterWrap">
+            <div class="dash-select-trigger">
+              <span class="dash-select-value">All Bookings</span>
+              <svg class="dash-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="dash-select-dropdown">
+              <div class="dash-select-option selected" data-value="all">All Bookings</div>
+              <div class="dash-select-option" data-value="upcoming">Upcoming</div>
+              <div class="dash-select-option" data-value="active">Active</div>
+              <div class="dash-select-option" data-value="completed">Completed</div>
+              <div class="dash-select-option" data-value="cancelled">Cancelled</div>
+            </div>
+          </div>
+          <select class="dash-select-hidden" id="bookingFilter" style="display:none">
+            <option value="all">All Bookings</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="bookings-table-wrap">
+        <table class="bookings-table">
+          <thead>
+            <tr>
+              <th>Guest</th>
+              <th>Property</th>
+              <th>Room</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+              <th>Nights</th>
+              <th>Revenue</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB: ROOMS -->
+    <div class="dash-tab" id="tab-rooms">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Inventory</div>
+          <h1 class="dash-title">Room <em>Status</em></h1>
+          <p class="dash-sub">Live view of all rooms across your properties.</p>
+        </div>
+        <div class="rooms-legend">
+          <span class="rl-item"><span class="rl-dot green"></span> Occupied</span>
+          <span class="rl-item"><span class="rl-dot teal"></span> Available</span>
+          <span class="rl-item"><span class="rl-dot yellow"></span> Maintenance</span>
+          <span class="rl-item"><span class="rl-dot gray"></span> Reserved</span>
+        </div>
+      </div>
+      <!-- Floor Selector -->
+      <div class="floor-selector" id="floorSelector"></div>
+      <div class="room-grid" id="roomGrid"></div>
+      <div class="room-summary" id="roomSummary"></div>
+    </div>
+
+    <!-- TAB: REVENUE -->
+    <div class="dash-tab" id="tab-revenue">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Financials</div>
+          <h1 class="dash-title">Revenue <em>Analytics</em></h1>
+        </div>
+        <div class="dash-custom-select" id="revPeriodWrap">
+          <div class="dash-select-trigger">
+            <span class="dash-select-value">This Month</span>
+            <svg class="dash-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="dash-select-dropdown">
+            <div class="dash-select-option selected" data-value="month">This Month</div>
+            <div class="dash-select-option" data-value="quarter">This Quarter</div>
+            <div class="dash-select-option" data-value="year">This Year</div>
+          </div>
+        </div>
+        <select class="dash-select-hidden" id="revPeriod" style="display:none">
+          <option value="month">This Month</option>
+          <option value="quarter">This Quarter</option>
+          <option value="year">This Year</option>
+        </select>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-content">
+            <div class="kpi-label">Gross Revenue</div>
+            <div class="kpi-value">$84,200</div>
+            <div class="kpi-delta positive">+12.4%</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-content">
+            <div class="kpi-label">AURUM Commission (12%)</div>
+            <div class="kpi-value">$10,104</div>
+            <div class="kpi-delta neutral">Standard Plan</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-content">
+            <div class="kpi-label">Net Revenue</div>
+            <div class="kpi-value">$74,096</div>
+            <div class="kpi-delta positive">After commission</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-content">
+            <div class="kpi-label">RevPAR</div>
+            <div class="kpi-value">$1,522</div>
+            <div class="kpi-delta positive">Revenue per available room</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-content">
+            <div class="kpi-label">ADR</div>
+            <div class="kpi-value">$568</div>
+            <div class="kpi-delta positive">Avg daily rate</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-content">
+            <div class="kpi-label">Total Profit Margin</div>
+            <div class="kpi-value">68%</div>
+            <div class="kpi-delta positive">+2.3% vs last month</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Streams -->
+      <div class="dash-card" style="margin-top:20px;">
+        <div class="dc-header">
+          <div class="dc-title">Revenue by Stream</div>
+          <div class="dc-period">This Month</div>
+        </div>
+        <div class="rev-streams" id="revStreams"></div>
+      </div>
+
+      <div class="dash-card" style="margin-top:20px;">
+        <div class="dc-header">
+          <div class="dc-title">Monthly Breakdown</div>
+        </div>
+        <div class="rev-breakdown-table">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th class="rbt-th">Month</th>
+                <th class="rbt-th">Bookings</th>
+                <th class="rbt-th">Gross</th>
+                <th class="rbt-th">Commission</th>
+                <th class="rbt-th">Net</th>
+                <th class="rbt-th">ADR</th>
+                <th class="rbt-th">RevPAR</th>
+                <th class="rbt-th">Trend</th>
+              </tr>
+            </thead>
+            <tbody id="revBreakdownBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: GUESTS -->
+    <div class="dash-tab" id="tab-guests">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Guest Relations</div>
+          <h1 class="dash-title">Guest <em>Management</em></h1>
+          <p class="dash-sub">VIP tracking, preferences, and loyalty insights.</p>
+        </div>
+        <div class="filter-row">
+          <div class="dash-custom-select" id="guestFilterWrap">
+            <div class="dash-select-trigger">
+              <span class="dash-select-value">All Guests</span>
+              <svg class="dash-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="dash-select-dropdown">
+              <div class="dash-select-option selected" data-value="all">All Guests</div>
+              <div class="dash-select-option" data-value="vip">VIP</div>
+              <div class="dash-select-option" data-value="returning">Returning</div>
+              <div class="dash-select-option" data-value="new">New</div>
+            </div>
+          </div>
+          <select class="dash-select-hidden" id="guestFilter" style="display:none">
+            <option value="all">All Guests</option>
+            <option value="vip">VIP</option>
+            <option value="returning">Returning</option>
+            <option value="new">New</option>
+          </select>
+        </div>
+      </div>
+      <div class="guest-cards-grid" id="guestCardsGrid"></div>
+    </div>
+
+    <!-- TAB: HOUSEKEEPING -->
+    <div class="dash-tab" id="tab-housekeeping">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Operations</div>
+          <h1 class="dash-title">Housekeeping <em>Control</em></h1>
+          <p class="dash-sub">Track room readiness, staff assignments, and task status.</p>
+        </div>
+        <div class="hk-summary" id="hkSummary"></div>
+      </div>
+      <div class="hk-board" id="hkBoard"></div>
+    </div>
+
+    <!-- TAB: LIST NEW -->
+    <div class="dash-tab" id="tab-list">
+      <div class="dash-header">
+        <div>
+          <div class="dash-eyebrow">Expand Portfolio</div>
+          <h1 class="dash-title">List a New <em>Property</em></h1>
+          <p class="dash-sub">Add another hotel or property to your AURUM portfolio.</p>
+        </div>
+      </div>
+      <div class="list-prompt-card">
+        <div class="lp-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="lp-title">Ready to expand your portfolio?</div>
+        <div class="lp-desc">Add a new property using our guided 5-step listing form. From property details to photos and pricing — it takes under 20 minutes.</div>
+        <a href="owner.html" class="btn-dash-gold" style="margin-top:20px;display:inline-flex;align-items:center;gap:10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Start New Listing
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- EDIT / DELETE PROPERTY MODAL -->
+<div class="edit-prop-modal" id="editPropModal">
+  <div class="epm-backdrop" id="epmBackdrop"></div>
+  <div class="epm-window">
+    <div class="epm-header">
+      <div class="epm-title-wrap">
+        <div class="epm-title" id="epmTitle">Edit Property</div>
+        <div class="epm-subtitle" id="epmSubtitle">Update your property details</div>
+      </div>
+      <button class="epm-close" id="epmClose">✕</button>
+    </div>
+    <form class="epm-form" id="epmForm">
+      <input type="hidden" id="epmPropIndex" value="-1"/>
+      <div class="epm-field">
+        <label class="epm-label">Property Name</label>
+        <input type="text" class="epm-input" id="epmName" placeholder="e.g. Grand Hotel AURUM" required/>
+      </div>
+      <div class="epm-row">
+        <div class="epm-field">
+          <label class="epm-label">City</label>
+          <input type="text" class="epm-input" id="epmCity" placeholder="e.g. Paris"/>
+        </div>
+        <div class="epm-field">
+          <label class="epm-label">Country</label>
+          <input type="text" class="epm-input" id="epmCountry" placeholder="e.g. France"/>
+        </div>
+      </div>
+      <div class="epm-row">
+        <div class="epm-field">
+          <label class="epm-label">Star Rating</label>
+          <div class="epm-stars" id="epmStars">
+            <span class="star-opt" data-val="3">★</span>
+            <span class="star-opt" data-val="4">★</span>
+            <span class="star-opt selected" data-val="5">★</span>
+          </div>
+          <input type="hidden" id="epmStarVal" value="5"/>
+        </div>
+        <div class="epm-field">
+          <label class="epm-label">Total Rooms</label>
+          <input type="number" class="epm-input" id="epmRooms" placeholder="e.g. 56" min="1"/>
+        </div>
+      </div>
+      <div class="epm-divider"></div>
+      <div class="epm-actions">
+        <button type="button" class="btn-epm-delete" id="epmDeleteBtn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          Delete Property
+        </button>
+        <div class="epm-right-actions">
+          <button type="button" class="btn-epm-cancel" id="epmCancelBtn">Cancel</button>
+          <button type="submit" class="btn-epm-save">Save Changes</button>
+        </div>
+      </div>
+    </form>
+    <!-- Delete confirmation panel -->
+    <div class="epm-delete-confirm" id="epmDeleteConfirm">
+      <div class="epm-delete-confirm-icon">⚠</div>
+      <div class="epm-delete-confirm-text">Delete this property?</div>
+      <div class="epm-delete-confirm-sub">This action cannot be undone. All bookings and data will be lost.</div>
+      <div class="epm-confirm-actions">
+        <button type="button" class="btn-epm-back" id="epmBackBtn">Keep Property</button>
+        <button type="button" class="btn-epm-confirm-delete" id="epmConfirmDeleteBtn">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<button class="btn-nav-reveal" id="navRevealBtn" title="Show navigation">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+
+<!-- Owner-only access protection -->
+<script>
+  (function() {
+    const user = JSON.parse(localStorage.getItem('aurum-user') || 'null');
+    if (!user || user.role !== 'owner') {
+      window.location.href = 'auth.html';
+    }
+  })();
+</script>
+
+<script src="owner-dashboard.js"></script>
+</body>
+</html>
